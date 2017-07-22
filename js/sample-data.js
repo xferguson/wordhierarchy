@@ -5,7 +5,7 @@
 					'word': 'Affection', 'sub_words': [
 						{'word': 'Adoration'},
 						{'word': 'Affection'},
-						{'word': 'Attractiono'},
+						{'word': 'Attraction'},
 						{'word': 'Caring'},
 						{'word': 'Compassion'},
 						{'word': 'Fondness'},

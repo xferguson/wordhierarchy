@@ -1,12 +1,22 @@
 var buildTable = function(data, target, termType) {
 	var termType = undefined === termType ? 'Term' : termType;
+	var ThirdTier = function(props) {
+		var tertiaryWords = props.tertiaryWords;
+		const tertiary = tertiaryWords.map((tertiaryWord) =>
+			<div className='wh-cell wh-secondary'><p>{tertiaryWord.word}</p></div>
+		);
+		return (
+			<div>
+				{tertiary}
+			</div>
+		);
+	};
 	var SecondTier = function(props) {
 		var secondaryWords = props.secondaryWords;
-		console.log(secondaryWords);
 		const secondary = secondaryWords.map((secondaryWord) =>
 			<div>
 				<div className='wh-cell wh-secondary'><p>{secondaryWord.word}</p></div>
-				<div className='wh-cell wh-tertiary'><p>test vocab</p></div>
+				<ThirdTier tertiaryWords={secondaryWord.sub_words} />
 			</div>
 		);
 		return (

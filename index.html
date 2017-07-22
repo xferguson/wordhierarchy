@@ -25,12 +25,38 @@
 	width: 100%;
 	overflow: hidden;
 }
+.wh-header-row .wh-cell {
+	float: left;
+}
+.wh-primary,
+.wh-secondary,
+.wh-tertiary {
+	overflow: hidden;
+}
+.wh-primary {
+	width: 100%;
+}
+.wh-secondary {
+	width: calc(100% * (2/3) );
+}
+.wh-tertiary {
+	width: calc(100% / 3 );
+}
 .wh-cell {
 	border: 1px #000 solid;
-	float: left;
+	/*float: left;*/
 	margin: 0;
 	padding: 0.5em;
 	width: calc(100% / 3);
+}
+.wh-primary .wh-cell {
+	/*height: 100%;*/
+}
+.wh-secondary .wh-cell {
+	width: 50%;
+}
+.wh-tertiary .wh-cell {
+	width: 100%;
 }
 
 	</style>

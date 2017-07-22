@@ -2,12 +2,18 @@ var buildTable = function(data, target, termType) {
 	var termType = undefined === termType ? 'Term' : termType;
 	var ThirdTier = function(props) {
 		var tertiaryWords = props.tertiaryWords;
-		const tertiary = tertiaryWords.map((tertiaryWord) =>
-			<div className='wh-cell wh-secondary'><p>{tertiaryWord.word}</p></div>
-		);
+		var compileWords = function(wordList) {
+			console.log(wordList);
+			var wordArray = [];
+			for (var i = wordList.length - 1; i >= 0; i--) {
+				wordArray.push(wordList[i].word);
+			}
+			return wordArray.join(', ');
+		}
+		var tertiaryString = compileWords(tertiaryWords);
 		return (
-			<div>
-				{tertiary}
+			<div className='wh-tertiary'>
+				<div className='wh-cell'><p>{tertiaryString}</p></div>
 			</div>
 		);
 	};
@@ -15,12 +21,12 @@ var buildTable = function(data, target, termType) {
 		var secondaryWords = props.secondaryWords;
 		const secondary = secondaryWords.map((secondaryWord) =>
 			<div>
-				<div className='wh-cell wh-secondary'><p>{secondaryWord.word}</p></div>
+				<div className='wh-cell'><p>{secondaryWord.word}</p></div>
 				<ThirdTier tertiaryWords={secondaryWord.sub_words} />
 			</div>
 		);
 		return (
-			<div>
+			<div className='wh-secondary'>
 				{secondary}
 			</div>
 		);
@@ -29,16 +35,18 @@ var buildTable = function(data, target, termType) {
 		var rows = props.data;
 		const tableRows = rows.map((row) =>
 			<div className='wh-row'>
-				<div className='wh-cell wh-primary'><p>{row.word}</p></div>
-				<SecondTier secondaryWords={row.sub_words} />
+				<div className='wh-primary'>
+					<div className='wh-cell'><p>{row.word}</p></div>
+					<SecondTier secondaryWords={row.sub_words} />
+				</div>
 			</div>
 		);
 		return (
 			<div className='wh-table'>
 				<div className='wh-row wh-header-row'>
-					<div className='wh-cell wh-primary'><h3>Primary {props.term}</h3></div>
-					<div className='wh-cell wh-secondary'><h3>Secondary {props.term}</h3></div>
-					<div className='wh-cell wh-tertiary'><h3>Tertiary {props.term}</h3></div>
+					<div className='wh-cell'><h3>Primary {props.term}</h3></div>
+					<div className='wh-cell'><h3>Secondary {props.term}</h3></div>
+					<div className='wh-cell'><h3>Tertiary {props.term}</h3></div>
 				</div>
 				{tableRows}
 			</div>

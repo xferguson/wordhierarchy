@@ -23,7 +23,7 @@ var buildTable = function(data, target, termType) {
 			console.log(wordList);
 			var wordArray = [];
 			for (var i = wordList.length - 1; i >= 0; i--) {
-				wordArray.push(wordList[i].word);
+				wordArray.unshift(wordList[i].word); // make it alphabetical
 			}
 			return wordArray.join(', ');
 		}
@@ -56,9 +56,19 @@ var buildTable = function(data, target, termType) {
 		return (
 			<div className='wh-table'>
 				<div className='wh-row wh-header-row'>
-					<div className='wh-cell'><h3>Primary {props.term}</h3></div>
-					<div className='wh-cell'><h3>Secondary {props.term}</h3></div>
-					<div className='wh-cell'><h3>Tertiary {props.term}</h3></div>
+					<div className='wh-primary'>
+						<div className='wh-cell'><h3>Primary {props.term}</h3></div>
+						<div className='wh-secondary'>
+							<div>
+								<div className='wh-cell'><h3>Secondary {props.term}</h3></div>
+								<div className='wh-tertiary'>
+									<div>
+										<div className='wh-cell'><h3>Tertiary {props.term}</h3></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				{tableRows}
 			</div>

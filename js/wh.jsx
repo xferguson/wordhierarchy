@@ -19,10 +19,22 @@ var buildTable = function(data, target, termType) {
 	};
 	var SecondTier = function(props) {
 		var secondaryWords = props.secondaryWords;
+		var tertiaryString = function(wordList) {
+			console.log(wordList);
+			var wordArray = [];
+			for (var i = wordList.length - 1; i >= 0; i--) {
+				wordArray.push(wordList[i].word);
+			}
+			return wordArray.join(', ');
+		}
 		const secondary = secondaryWords.map((secondaryWord) =>
 			<div>
 				<div className='wh-cell'><p>{secondaryWord.word}</p></div>
-				<ThirdTier tertiaryWords={secondaryWord.sub_words} />
+				<div className='wh-tertiary'>
+					<div>
+						<div className='wh-cell'><p>{tertiaryString(secondaryWord.sub_words)}</p></div>
+					</div>
+				</div>
 			</div>
 		);
 		return (

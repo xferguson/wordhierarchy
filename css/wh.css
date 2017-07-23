@@ -1,0 +1,63 @@
+*, *:before, *:after {
+	box-sizing: border-box;
+}
+
+body {
+}
+
+/* Hierarchy Table */
+.wh-table {
+	border: 1px #000 solid;
+	margin: 1em 0;
+	padding: 0;
+	width: 95%;
+	max-width: 600px;
+	overflow: hidden;
+	text-align: left;
+}
+.wh-row {
+	clear: both;
+	width: 100%;
+	overflow: hidden;
+}
+.wh-header-row .wh-cell {
+	float: left;
+	border-top: none;
+}
+.wh-header-row .wh-cell:nth-of-type(n+2) {
+	border-left: 1px #000 solid;
+}
+.wh-primary,
+.wh-secondary,
+.wh-tertiary {
+	overflow: hidden;
+}
+.wh-secondary,
+.wh-tertiary {
+	border-left: 1px #000 solid;
+}
+.wh-primary {
+	width: 100%;
+}
+.wh-secondary {
+	width: calc(100% * (2/3) );
+}
+.wh-tertiary {
+	width: 50%;
+}
+.wh-cell {
+	border-top: 1px #000 solid;
+	float: left;
+	margin: 0;
+	padding: 0.5em;
+	width: calc(100% / 3);
+}
+.wh-primary > .wh-cell {
+	font-weight: 600;
+}
+.wh-secondary .wh-cell {
+	width: 50%;
+}
+.wh-tertiary .wh-cell {
+	width: 100%;
+}

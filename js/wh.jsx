@@ -1,36 +1,22 @@
-class WHCell extends React.Component {
+class WHRow extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			value: props.value,
+			level: props.level,
 			subCells: (undefined !== props.subCells && null !== props.subCells && props.subCells.length > 0) ? props.subCells : null,
 		};
 	}
 	render() {
-		const getSubs = function(subs) {
-
-			// const subRow = subs.map((row) => {
-			// 	const word = row;
-			// 	console.log(word);
-			// 	const value = Object.keys(word)[0];
-			// 	console.log(value);
-			// 	const sub = word[value];
-			// 	console.log(sub);
-			// 	return (
-			// 		<WHCell value={value} level={0} subCells={sub} />
-			// 	);
-			// });
+		const subRows = function(subs, level) {
 			if (subs !== null) {
 				return(
 					subs.map((row) => {
 						const word = row;
-						console.log(word);
 						const value = Object.keys(word)[0];
-						console.log(value);
 						const sub = word[value];
-						console.log(sub);
 						return (
-							<WHCell value={value} level={0} subCells={sub} />
+							<WHRow value={value} level={level} subCells={sub} />
 						);
 					})
 				);
@@ -39,7 +25,10 @@ class WHCell extends React.Component {
 			}
 		}
 		return(
-			<div className='wh-cell'><p>{this.state.value}</p>{getSubs(this.state.subCells)}</div>
+			<div className='wh-row'>
+				<div className='wh-cell'><p>{this.state.value}</p></div>
+				{subRows(this.state.subCells, (this.state.level + 1))}
+			</div>
 		);
 	}
 }
@@ -58,9 +47,7 @@ class WHTable extends React.Component {
 			const value = Object.keys(word)[0];
 			const sub = word[value];
 			return (
-				<div className='wh-row'>
-					<WHCell value={value} level={0} subCells={sub} />
-				</div>
+				<WHRow value={value} level={0} subCells={sub} />
 			);
 		});
 		return (

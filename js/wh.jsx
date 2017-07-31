@@ -95,6 +95,9 @@ class WHTable extends React.Component {
 	render() {
 		const maxLevel = this.state.maxLevel;
 		const tableRows = this.state.data.map((row) => {
+			if (null === row || 'object' !== typeof row || Array.isArray(row)) {
+				return null;
+			}
 			const word = row;
 			const value = Object.keys(word)[0];
 			const sub = word[value];

@@ -33,8 +33,11 @@ body {
 	position: relative;
 	float: left;
 	margin: 0;
-	padding: 0.5em;
+	padding: 1.25em 0.5em;
 	width: calc(100% / 3);
+}
+.wh-cell p {
+	margin: 0;
 }
 .sub {
     float: left;
@@ -56,8 +59,9 @@ body {
 /* Edit Buttons */
 .edit {
     position: absolute;
-    top: 0.25em;
-    right: 0.25em;
+    top: 0em;
+    right: 0em;
+    font-size: 0.75em;
 }
 .edit a {
     display: inline-block;

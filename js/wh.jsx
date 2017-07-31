@@ -7,15 +7,23 @@ class WHRow extends React.Component {
 			level: props.level,
 			maxLevel: props.maxLevel,
 			subCells: (undefined !== props.subCells && null !== props.subCells && props.subCells.length > 0) ? props.subCells : null,
+			edit: this.props.edit ? this.props.edit : false,
 		};
 	}
 	render() {
 		const that = this;
 		const maxLevel = that.state.maxLevel;
-		const editValue = function(e) {
+		const toggleEdit = function(e) {
 			e.preventDefault();
 			that.setState({
-				value: 'edited',
+				edit: !that.state.edit,
+			});
+		}
+		const updateValue = function(e) {
+			e.preventDefault();
+			that.setState({
+				value: e.target.value,
+				// edit: false,
 			});
 		}
 		const subRows = function(subs, level) {
@@ -41,10 +49,29 @@ class WHRow extends React.Component {
 				return null;
 			}
 		}
+		const cellType = function(value) {
+			if (that.state.edit) {
+				return(	
+					<div className='wh-cell'>
+						<form onSubmit={toggleEdit}>
+							<input id="edit-input-text" type="text" value={that.state.value} onChange={updateValue}></input>
+						</form>
+						<div className="edit"><a href="#" onClick={toggleEdit}>Update</a></div>
+					</div>
+				);				
+			} else {
+				return(	
+					<div className='wh-cell'>
+						<p>{that.state.value}</p>
+						<div className="edit"><a href="#" onClick={toggleEdit}>Edit</a></div>
+					</div>
+				);
+			}
+		}
 		return(
 			<div className='wh-row'>
-				<div className='wh-cell'><p>{this.state.value}</p><div className="edit"><a href="#" onClick={editValue}>Edit</a></div></div>
-				<div className='sub'>{subRows(this.state.subCells, (this.state.level + 1))}</div>
+				{cellType(that.state.value)}
+				<div className='sub'>{subRows(that.state.subCells, (that.state.level + 1))}</div>
 			</div>
 		);
 	}

@@ -2,6 +2,7 @@ class WHRow extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			idRoot: (undefined !== props.id && null !== props.id && 'string' === typeof props.id) ? props.id : props.level.toString(),
 			value: props.value,
 			level: props.level,
 			maxLevel: props.maxLevel,
@@ -9,23 +10,29 @@ class WHRow extends React.Component {
 		};
 	}
 	render() {
-		const maxLevel = this.state.maxLevel;
+		const that = this;
+		const maxLevel = that.state.maxLevel;
+		const editValue = function(e) {
+			e.preventDefault();
+			that.setState({
+				value: 'edited',
+			});
+		}
 		const subRows = function(subs, level) {
 			if (subs !== null) {
-				console.log('maxlevel: ' + maxLevel + ' and level: ' + level);
 				if (maxLevel === level) {
 					const value = subs.map((row) => Object.keys(row)[0]).join(', ');
 					return(
-						<WHRow value={value} level={level} />
+						<WHRow id={that.state.idRoot + '-' + 0} value={value} level={level} />
 					);
 				} else {
 					return(
-						subs.map((row) => {
+						subs.map((row, index) => {
 							const word = row;
 							const value = Object.keys(word)[0];
 							const sub = word[value];
 							return (
-								<WHRow value={value} level={level} subCells={sub} maxLevel={maxLevel} />
+								<WHRow id={that.state.idRoot + '-' + index} value={value} level={level} subCells={sub} maxLevel={maxLevel} />
 							);
 						})
 					);
@@ -36,7 +43,7 @@ class WHRow extends React.Component {
 		}
 		return(
 			<div className='wh-row'>
-				<div className='wh-cell'><p>{this.state.value}</p></div>
+				<div className='wh-cell'><p>{this.state.value}</p><div className="edit"><a href="#" onClick={editValue}>Edit</a></div></div>
 				<div className='sub'>{subRows(this.state.subCells, (this.state.level + 1))}</div>
 			</div>
 		);

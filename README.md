@@ -14,7 +14,7 @@ To simplify the data schema, I have used nested arrays and objects such that a w
 data = [
 	{word: [
 			{word: [
-					{word},
+					{word: [EMPTYARRAY]},
 					{...},
 				]
 			},

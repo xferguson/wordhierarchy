@@ -3,10 +3,10 @@ class WHRow extends React.Component {
 		super(props);
 		this.state = {
 			idRoot: (undefined !== props.id && null !== props.id && 'string' === typeof props.id) ? props.id : props.level.toString(),
-			value: props.value,
+			value: (undefined !== props.value && null !== props.value && 'string' === typeof props.value) ? props.value : '',
 			level: props.level,
 			maxLevel: props.maxLevel,
-			subCells: (undefined !== props.subCells && Array.isArray(props.subCells) && props.subCells.length > 0) ? props.subCells : null,
+			subCells: (undefined !== props.subCells && Array.isArray(props.subCells) && props.subCells.length > 0) ? props.subCells : [{}],
 			edit: this.props.edit ? this.props.edit : false,
 		};
 	}
@@ -27,27 +27,34 @@ class WHRow extends React.Component {
 			});
 		}
 		const subRows = function(subs, level) {
-			if (subs !== null) {
-				if (maxLevel === level) {
-					const value = subs.map((row) => Object.keys(row)[0]).join(', ');
-					return(
-						<WHRow id={that.state.idRoot + '-' + 0} value={value} level={level} />
-					);
-				} else {
+			// if (subs !== null) {
+				if (maxLevel > level) {
 					return(
 						subs.map((row, index) => {
-							const word = row;
-							const value = Object.keys(word)[0];
+							const word = (undefined !== row && null !== row && 'object' === typeof row) ? row : {};
+							const value = undefined !== Object.keys(word)[0] ? Object.keys(word)[0] : '';
 							const sub = word[value];
 							return (
 								<WHRow id={that.state.idRoot + '-' + index} value={value} level={level} subCells={sub} maxLevel={maxLevel} />
 							);
 						})
 					);
+				} else {
+					if (maxLevel === level) {
+						const value = subs.map((row) => Object.keys(row)[0]).join(', ');
+						return(
+							<WHRow id={that.state.idRoot + '-' + 0} value={value} level={level} />
+						);
+					} else {
+						return false;
+					}
 				}
-			} else {
-				return null;
-			}
+			// } else {
+				// return(
+				// 	<WHRow id={that.state.idRoot + '-' + 0} value='' level={level} />
+				// );
+				// return null;
+			// }
 		}
 		const cellType = function(value) {
 			if (that.state.edit) {

@@ -2,30 +2,45 @@ class WHRow extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			idRoot: (undefined !== props.id && null !== props.id && 'string' === typeof props.id) ? props.id : props.level.toString(),
 			value: props.value,
 			level: props.level,
 			maxLevel: props.maxLevel,
 			subCells: (undefined !== props.subCells && null !== props.subCells && props.subCells.length > 0) ? props.subCells : null,
+			edit: this.props.edit ? this.props.edit : false,
 		};
 	}
 	render() {
-		const maxLevel = this.state.maxLevel;
+		const that = this;
+		const maxLevel = that.state.maxLevel;
+		const toggleEdit = function(e) {
+			e.preventDefault();
+			that.setState({
+				edit: !that.state.edit,
+			});
+		}
+		const updateValue = function(e) {
+			e.preventDefault();
+			that.setState({
+				value: e.target.value,
+				// edit: false,
+			});
+		}
 		const subRows = function(subs, level) {
 			if (subs !== null) {
-				console.log('maxlevel: ' + maxLevel + ' and level: ' + level);
 				if (maxLevel === level) {
 					const value = subs.map((row) => Object.keys(row)[0]).join(', ');
 					return(
-						<WHRow value={value} level={level} />
+						<WHRow id={that.state.idRoot + '-' + 0} value={value} level={level} />
 					);
 				} else {
 					return(
-						subs.map((row) => {
+						subs.map((row, index) => {
 							const word = row;
 							const value = Object.keys(word)[0];
 							const sub = word[value];
 							return (
-								<WHRow value={value} level={level} subCells={sub} maxLevel={maxLevel} />
+								<WHRow id={that.state.idRoot + '-' + index} value={value} level={level} subCells={sub} maxLevel={maxLevel} />
 							);
 						})
 					);
@@ -34,10 +49,29 @@ class WHRow extends React.Component {
 				return null;
 			}
 		}
+		const cellType = function(value) {
+			if (that.state.edit) {
+				return(	
+					<div className='wh-cell'>
+						<form onSubmit={toggleEdit}>
+							<input id="edit-input-text" type="text" value={that.state.value} onChange={updateValue}></input>
+						</form>
+						<div className="edit"><a href="#" onClick={toggleEdit}>Update</a></div>
+					</div>
+				);				
+			} else {
+				return(	
+					<div className='wh-cell'>
+						<p>{that.state.value}</p>
+						<div className="edit"><a href="#" onClick={toggleEdit}>Edit</a></div>
+					</div>
+				);
+			}
+		}
 		return(
 			<div className='wh-row'>
-				<div className='wh-cell'><p>{this.state.value}</p></div>
-				<div className='sub'>{subRows(this.state.subCells, (this.state.level + 1))}</div>
+				{cellType(that.state.value)}
+				<div className='sub'>{subRows(that.state.subCells, (that.state.level + 1))}</div>
 			</div>
 		);
 	}

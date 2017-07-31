@@ -30,10 +30,14 @@ body {
 
 .wh-cell {
 	border-top: 1px #000 solid;
+	position: relative;
 	float: left;
 	margin: 0;
-	padding: 0.5em;
+	padding: 1.25em 0.5em;
 	width: calc(100% / 3);
+}
+.wh-cell p {
+	margin: 0;
 }
 .sub {
     float: left;
@@ -52,6 +56,21 @@ body {
     width: 100%;
 }
 
+/* Edit Buttons */
+.edit {
+    position: absolute;
+    top: 0em;
+    right: 0em;
+    font-size: 0.75em;
+}
+.edit a {
+    display: inline-block;
+    padding: 0.25em;
+    background-color: #ccc;
+    text-decoration: none;
+}
+
+/* Only relevant to header -- need to replace */
 .wh-primary,
 .wh-secondary,
 .wh-tertiary {

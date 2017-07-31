@@ -50,9 +50,9 @@
 	    {
 	        'Surprise': [{
 	            'Surprise': [
-	                ['Amazement'],
-	                ['Astonishment'],
-	                ['Surprise']
+	                {'Amazement': []},
+	                {'Astonishment': []},
+	                {'Surprise': []}
 	            ]
 	        }]
 	    },

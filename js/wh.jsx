@@ -1,38 +1,79 @@
-class WHCell extends React.Component() {
-	constructor() {
-		super();
+class WHCell extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			value: props.value,
+			subCells: (undefined !== props.subCells && null !== props.subCells && props.subCells.length > 0) ? props.subCells : null,
+		};
 	}
 	render() {
+		const getSubs = function(subs) {
+
+			// const subRow = subs.map((row) => {
+			// 	const word = row;
+			// 	console.log(word);
+			// 	const value = Object.keys(word)[0];
+			// 	console.log(value);
+			// 	const sub = word[value];
+			// 	console.log(sub);
+			// 	return (
+			// 		<WHCell value={value} level={0} subCells={sub} />
+			// 	);
+			// });
+			if (subs !== null) {
+				return(
+					subs.map((row) => {
+						const word = row;
+						console.log(word);
+						const value = Object.keys(word)[0];
+						console.log(value);
+						const sub = word[value];
+						console.log(sub);
+						return (
+							<WHCell value={value} level={0} subCells={sub} />
+						);
+					})
+				);
+			} else {
+				return null;
+			}
+		}
 		return(
-			<div className='wh-cell'><p>{this.props.value}</p></div>
+			<div className='wh-cell'><p>{this.state.value}</p>{getSubs(this.state.subCells)}</div>
 		);
 	}
 }
-class WHTable extends React.Component() {
-	constructor() {
-		super();
+class WHTable extends React.Component {
+	constructor(props) {
+		super(props);
 		this.state = {
 			numberOfLevels: 3,
-			term: undefined === this.props.term ? 'Term' : this.props.term,
-		}
+			term: undefined === props.term ? 'Term' : props.term,
+			data: props.data,
+		};
 	}
 	render() {
-		const tableRows = this.props.data.map((word) =>
-			<div className='wh-row'>
-				<WHCell value={Object.keys(word)[0]} level={0} subCells={word[Object.keys(word)[0]]} />
-			</div>
-		);
+		const tableRows = this.state.data.map((row) => {
+			const word = row;
+			const value = Object.keys(word)[0];
+			const sub = word[value];
+			return (
+				<div className='wh-row'>
+					<WHCell value={value} level={0} subCells={sub} />
+				</div>
+			);
+		});
 		return (
 			<div className='wh-table'>
 				<div className='wh-row wh-header-row'>
 					<div className='wh-primary'>
-						<div className='wh-cell'><h3>Primary {props.term}</h3></div>
+						<div className='wh-cell'><h3>Primary {this.state.term}</h3></div>
 						<div className='wh-secondary'>
 							<div>
-								<div className='wh-cell'><h3>Secondary {props.term}</h3></div>
+								<div className='wh-cell'><h3>Secondary {this.state.term}</h3></div>
 								<div className='wh-tertiary'>
 									<div>
-										<div className='wh-cell'><h3>Tertiary {props.term}</h3></div>
+										<div className='wh-cell'><h3>Tertiary {this.state.term}</h3></div>
 									</div>
 								</div>
 							</div>
@@ -91,37 +132,6 @@ var buildTable = function(data, target, termType) {
 			</div>
 		);
 	};
-	// var WHTable = function(props) {
-	// 	var rows = props.data;
-	// 	const tableRows = rows.map((row) =>
-	// 		<div className='wh-row'>
-	// 			<div className='wh-primary'>
-	// 				<div className='wh-cell'><p>{row.word}</p></div>
-	// 				<SecondTier secondaryWords={row.sub_words} />
-	// 			</div>
-	// 		</div>
-	// 	);
-	// 	return (
-	// 		<div className='wh-table'>
-	// 			<div className='wh-row wh-header-row'>
-	// 				<div className='wh-primary'>
-	// 					<div className='wh-cell'><h3>Primary {props.term}</h3></div>
-	// 					<div className='wh-secondary'>
-	// 						<div>
-	// 							<div className='wh-cell'><h3>Secondary {props.term}</h3></div>
-	// 							<div className='wh-tertiary'>
-	// 								<div>
-	// 									<div className='wh-cell'><h3>Tertiary {props.term}</h3></div>
-	// 								</div>
-	// 							</div>
-	// 						</div>
-	// 					</div>
-	// 				</div>
-	// 			</div>
-	// 			{tableRows}
-	// 		</div>
-	// 	);
-	// };
 
 	ReactDOM.render(
 		<WHTable data={data} term={termType} />,

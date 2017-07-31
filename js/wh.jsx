@@ -27,7 +27,7 @@ class WHRow extends React.Component {
 		return(
 			<div className='wh-row'>
 				<div className='wh-cell'><p>{this.state.value}</p></div>
-				{subRows(this.state.subCells, (this.state.level + 1))}
+				<div className='sub'>{subRows(this.state.subCells, (this.state.level + 1))}</div>
 			</div>
 		);
 	}

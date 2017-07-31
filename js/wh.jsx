@@ -6,7 +6,7 @@ class WHRow extends React.Component {
 			value: props.value,
 			level: props.level,
 			maxLevel: props.maxLevel,
-			subCells: (undefined !== props.subCells && null !== props.subCells && props.subCells.length > 0) ? props.subCells : null,
+			subCells: (undefined !== props.subCells && Array.isArray(props.subCells) && props.subCells.length > 0) ? props.subCells : null,
 			edit: this.props.edit ? this.props.edit : false,
 		};
 	}

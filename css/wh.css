@@ -27,6 +27,31 @@ body {
 .wh-header-row .wh-cell:nth-of-type(n+2) {
 	border-left: 1px #000 solid;
 }
+
+.wh-cell {
+	border-top: 1px #000 solid;
+	float: left;
+	margin: 0;
+	padding: 0.5em;
+	width: calc(100% / 3);
+}
+.sub {
+    float: left;
+    clear: right;
+    overflow: hidden;
+    width: calc(100% * (2/3));
+    border-left: 1px black solid;
+}
+.sub .wh-cell {
+    width: 50%;
+}
+.sub .sub {
+    width: 50%;
+}
+.sub .sub .wh-cell {
+    width: 100%;
+}
+
 .wh-primary,
 .wh-secondary,
 .wh-tertiary {
@@ -44,13 +69,6 @@ body {
 }
 .wh-tertiary {
 	width: 50%;
-}
-.wh-cell {
-	border-top: 1px #000 solid;
-	float: left;
-	margin: 0;
-	padding: 0.5em;
-	width: calc(100% / 3);
 }
 .wh-primary > .wh-cell {
 	font-weight: 600;

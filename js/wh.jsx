@@ -1,69 +1,77 @@
-var buildTable = function(data, target, termType) {
-	var termType = undefined === termType ? 'Term' : termType;
-	var ThirdTier = function(props) {
-		var tertiaryWords = props.tertiaryWords;
-		var compileWords = function(wordList) {
-			console.log(wordList);
-			var wordArray = [];
-			for (var i = wordList.length - 1; i >= 0; i--) {
-				wordArray.push(wordList[i].word);
+class WHRow extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			value: props.value,
+			level: props.level,
+			maxLevel: props.maxLevel,
+			subCells: (undefined !== props.subCells && null !== props.subCells && props.subCells.length > 0) ? props.subCells : null,
+		};
+	}
+	render() {
+		const maxLevel = this.state.maxLevel;
+		const subRows = function(subs, level) {
+			if (subs !== null) {
+				console.log('maxlevel: ' + maxLevel + ' and level: ' + level);
+				if (maxLevel === level) {
+					const value = subs.map((row) => Object.keys(row)[0]).join(', ');
+					return(
+						<WHRow value={value} level={level} />
+					);
+				} else {
+					return(
+						subs.map((row) => {
+							const word = row;
+							const value = Object.keys(word)[0];
+							const sub = word[value];
+							return (
+								<WHRow value={value} level={level} subCells={sub} maxLevel={maxLevel} />
+							);
+						})
+					);
+				}
+			} else {
+				return null;
 			}
-			return wordArray.join(', ');
 		}
-		var tertiaryString = compileWords(tertiaryWords);
-		return (
-			<div className='wh-tertiary'>
-				<div className='wh-cell'><p>{tertiaryString}</p></div>
-			</div>
-		);
-	};
-	var SecondTier = function(props) {
-		var secondaryWords = props.secondaryWords;
-		var tertiaryString = function(wordList) {
-			console.log(wordList);
-			var wordArray = [];
-			for (var i = wordList.length - 1; i >= 0; i--) {
-				wordArray.unshift(wordList[i].word); // make it alphabetical
-			}
-			return wordArray.join(', ');
-		}
-		const secondary = secondaryWords.map((secondaryWord) =>
-			<div>
-				<div className='wh-cell'><p>{secondaryWord.word}</p></div>
-				<div className='wh-tertiary'>
-					<div>
-						<div className='wh-cell'><p>{tertiaryString(secondaryWord.sub_words)}</p></div>
-					</div>
-				</div>
-			</div>
-		);
-		return (
-			<div className='wh-secondary'>
-				{secondary}
-			</div>
-		);
-	};
-	var WHTable = function(props) {
-		var rows = props.data;
-		const tableRows = rows.map((row) =>
+		return(
 			<div className='wh-row'>
-				<div className='wh-primary'>
-					<div className='wh-cell'><p>{row.word}</p></div>
-					<SecondTier secondaryWords={row.sub_words} />
-				</div>
+				<div className='wh-cell'><p>{this.state.value}</p></div>
+				<div className='sub'>{subRows(this.state.subCells, (this.state.level + 1))}</div>
 			</div>
 		);
+	}
+}
+class WHTable extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			term: undefined === props.term ? 'Term' : props.term,
+			data: props.data,
+			maxLevel: props.maxLevel - 1, // account for 0 based indexing
+		};
+	}
+	render() {
+		const maxLevel = this.state.maxLevel;
+		const tableRows = this.state.data.map((row) => {
+			const word = row;
+			const value = Object.keys(word)[0];
+			const sub = word[value];
+			return (
+				<WHRow value={value} level={0} subCells={sub} maxLevel={maxLevel} />
+			);
+		});
 		return (
 			<div className='wh-table'>
 				<div className='wh-row wh-header-row'>
 					<div className='wh-primary'>
-						<div className='wh-cell'><h3>Primary {props.term}</h3></div>
+						<div className='wh-cell'><h3>Primary {this.state.term}</h3></div>
 						<div className='wh-secondary'>
 							<div>
-								<div className='wh-cell'><h3>Secondary {props.term}</h3></div>
+								<div className='wh-cell'><h3>Secondary {this.state.term}</h3></div>
 								<div className='wh-tertiary'>
 									<div>
-										<div className='wh-cell'><h3>Tertiary {props.term}</h3></div>
+										<div className='wh-cell'><h3>Tertiary {this.state.term}</h3></div>
 									</div>
 								</div>
 							</div>
@@ -73,12 +81,15 @@ var buildTable = function(data, target, termType) {
 				{tableRows}
 			</div>
 		);
-	};
+	}
+}
+
+var buildTable = function(data, target, termType, maxLevel) {
 
 	ReactDOM.render(
-		<WHTable data={data} term={termType} />,
+		<WHTable data={data} term={termType} maxLevel={maxLevel} />,
 		document.getElementById(target)
 	);
 };
 
-buildTable(sampleHierarchy, 'wh-sample', "Emotion");
+buildTable(sampleHierarchy, 'wh-sample', "Emotion", 3);

@@ -8,6 +8,7 @@ class WHRow extends React.Component {
 			maxLevel: props.maxLevel,
 			subCells: (undefined !== props.subCells && Array.isArray(props.subCells) && props.subCells.length > 0) ? props.subCells : [{}],
 			edit: this.props.edit ? this.props.edit : false,
+			unMount: props.unMount ? props.unMount : false,
 		};
 	}
 	render() {
@@ -26,35 +27,40 @@ class WHRow extends React.Component {
 				// edit: false,
 			});
 		}
+		const deleteRow = function(e) {
+			e.preventDefault();
+			console.log('level: ' + that.state.level);
+			console.log('maxLevel: ' + that.state.maxLevel);
+			console.log('unMount: ' + that.state.unMount);
+			that.setState({
+				unMount: true,
+				value: null,
+				subCells: [],
+				edit: false,
+			});
+		}
 		const subRows = function(subs, level) {
-			// if (subs !== null) {
-				if (maxLevel > level) {
+			if (maxLevel > level) {
+				return(
+					subs.map((row, index) => {
+						const word = (undefined !== row && null !== row && 'object' === typeof row) ? row : {};
+						const value = undefined !== Object.keys(word)[0] ? Object.keys(word)[0] : '';
+						const sub = word[value];
+						return (
+							<WHRow id={that.state.idRoot + '-' + index} unMount={that.state.unMount} value={value} level={level} subCells={sub} maxLevel={maxLevel} />
+						);
+					})
+				);
+			} else {
+				if (maxLevel === level) {
+					const value = subs.map((row) => Object.keys(row)[0]).join(', ');
 					return(
-						subs.map((row, index) => {
-							const word = (undefined !== row && null !== row && 'object' === typeof row) ? row : {};
-							const value = undefined !== Object.keys(word)[0] ? Object.keys(word)[0] : '';
-							const sub = word[value];
-							return (
-								<WHRow id={that.state.idRoot + '-' + index} value={value} level={level} subCells={sub} maxLevel={maxLevel} />
-							);
-						})
+						<WHRow id={that.state.idRoot + '-' + 0} value={value} level={level} maxLevel={maxLevel} />
 					);
 				} else {
-					if (maxLevel === level) {
-						const value = subs.map((row) => Object.keys(row)[0]).join(', ');
-						return(
-							<WHRow id={that.state.idRoot + '-' + 0} value={value} level={level} />
-						);
-					} else {
-						return false;
-					}
+					return false;
 				}
-			// } else {
-				// return(
-				// 	<WHRow id={that.state.idRoot + '-' + 0} value='' level={level} />
-				// );
-				// return null;
-			// }
+			}
 		}
 		const cellType = function(value) {
 			if (that.state.edit) {
@@ -75,12 +81,17 @@ class WHRow extends React.Component {
 				);
 			}
 		}
-		return(
-			<div className='wh-row'>
-				{cellType(that.state.value)}
-				<div className='sub'>{subRows(that.state.subCells, (that.state.level + 1))}</div>
-			</div>
-		);
+		if (that.state.unMount === false || (that.state.level) === that.state.maxLevel) {
+			return(
+				<div className='wh-row'>
+					{cellType(that.state.value)}
+					<div className='sub'>{subRows(that.state.subCells, (that.state.level + 1))}</div>
+					<div className="delete"><a href="#" onClick={deleteRow}>Delete</a></div>
+				</div>
+			);
+		} else {
+			return null;
+		}
 	}
 }
 class WHTable extends React.Component {

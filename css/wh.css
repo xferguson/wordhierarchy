@@ -16,6 +16,7 @@ body {
 	text-align: left;
 }
 .wh-row {
+	position: relative;
 	clear: both;
 	width: 100%;
 	overflow: hidden;
@@ -70,6 +71,22 @@ body {
     background-color: #ccc;
     text-decoration: none;
 }
+
+/* Delete Buttons */
+.delete {
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    font-size: 0.75em;
+}
+.delete a {
+    display: inline-block;
+    padding: 0.25em;
+    background-color: #ccc;
+    color: red;
+    text-decoration: none;
+}
+
 
 /* Only relevant to header -- need to replace */
 .wh-primary,

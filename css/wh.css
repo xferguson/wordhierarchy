@@ -60,48 +60,49 @@ body {
     width: 100%;
 }
 
+/** Table Editing */
+.edit,
+.delete,
+.add {
+	position: absolute;
+	font-size: 0.75em;
+}
+.edit a,
+.delete a,
+.add a {
+	display: inline-block;
+	padding: 0.25em;
+	text-decoration: none;
+}
+
 /* Edit Buttons */
 .edit {
-    position: absolute;
     top: 0em;
     right: 0em;
-    font-size: 0.75em;
 }
 .edit a {
-    display: inline-block;
-    padding: 0.25em;
     background-color: #ccc;
-    text-decoration: none;
 }
 
 /* Delete Buttons */
 .delete {
-    position: absolute;
     top: 0em;
     left: 0em;
-    font-size: 0.75em;
 }
 .delete a {
-    display: inline-block;
-    padding: 0.25em;
     background-color: #ccc;
     color: red;
-    text-decoration: none;
 }
 
 /* Add Bbuttons */
 .add {
-	position: absolute;
 	bottom: 0;
 	left: 0;
-	font-size: 0.75em;
 }
 .add a {
-	display: inline-block;
-	padding: 0.25em 0.25em 0.25em 0.75em;
+	padding-left: 0.75em;
 	background-color: lightgreen;
 	color: white;
-	text-decoration: none;
 }
 .add a:before {
 	position: absolute;

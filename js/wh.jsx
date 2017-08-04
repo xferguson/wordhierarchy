@@ -10,6 +10,7 @@ class WHRow extends React.Component {
 			edit: this.props.edit ? this.props.edit : false,
 			unMount: props.unMount ? props.unMount : false,
 		};
+		this.addRow = props.addRow;
 	}
 	render() {
 		const that = this;
@@ -37,6 +38,12 @@ class WHRow extends React.Component {
 				value: null,
 				subCells: [],
 				edit: false,
+			});
+		}
+		const handleAddRow = function(e) {
+			e.preventDefault();
+			that.setState({
+				subCells: that.state.subCells.concat({}),
 			});
 		}
 		const subRows = function(subs, level) {
@@ -85,7 +92,10 @@ class WHRow extends React.Component {
 			return(
 				<div className='wh-row'>
 					{cellType(that.state.value)}
-					<div className='sub'>{subRows(that.state.subCells, (that.state.level + 1))}</div>
+					<div className='sub'>
+						{subRows(that.state.subCells, (that.state.level + 1))}
+						{(that.state.level < (that.state.maxLevel-1) ) ? (<div className="add"><a href="#" onClick={handleAddRow}>Add Row</a></div>) : ('')}
+					</div>
 					<div className="delete"><a href="#" onClick={deleteRow}>Delete</a></div>
 				</div>
 			);
@@ -102,10 +112,18 @@ class WHTable extends React.Component {
 			data: props.data,
 			maxLevel: props.maxLevel - 1, // account for 0 based indexing
 		};
+		// this.handleAddRow = this.handleAddRow.bind(this);
 	}
 	render() {
-		const maxLevel = this.state.maxLevel;
-		const tableRows = this.state.data.map((row) => {
+		const that = this;
+		const maxLevel = that.state.maxLevel;
+		const handleAddRow = function(e) {
+			e.preventDefault();
+			that.setState({
+				data: that.state.data.concat({}),
+			});
+		}
+		const tableRows = that.state.data.map((row) => {
 			if (null === row || 'object' !== typeof row || Array.isArray(row)) {
 				return null;
 			}
@@ -113,20 +131,20 @@ class WHTable extends React.Component {
 			const value = Object.keys(word)[0];
 			const sub = word[value];
 			return (
-				<WHRow value={value} level={0} subCells={sub} maxLevel={maxLevel} />
+				<WHRow value={value} level={0} subCells={sub} maxLevel={maxLevel} addRow={handleAddRow} /> //handleAddRow={(function(e) {e.preventDefault(); that.state.data = that.state.data.push({});})} />
 			);
 		});
 		return (
 			<div className='wh-table'>
 				<div className='wh-row wh-header-row'>
 					<div className='wh-primary'>
-						<div className='wh-cell'><h3>Primary {this.state.term}</h3></div>
+						<div className='wh-cell'><h3>Primary {that.state.term}</h3></div>
 						<div className='wh-secondary'>
 							<div>
-								<div className='wh-cell'><h3>Secondary {this.state.term}</h3></div>
+								<div className='wh-cell'><h3>Secondary {that.state.term}</h3></div>
 								<div className='wh-tertiary'>
 									<div>
-										<div className='wh-cell'><h3>Tertiary {this.state.term}</h3></div>
+										<div className='wh-cell'><h3>Tertiary {that.state.term}</h3></div>
 									</div>
 								</div>
 							</div>
@@ -134,6 +152,7 @@ class WHTable extends React.Component {
 					</div>
 				</div>
 				{tableRows}
+				<div className="add"><a href="#" onClick={handleAddRow}>Add Row</a></div>
 			</div>
 		);
 	}

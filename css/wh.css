@@ -8,6 +8,7 @@ body {
 /* Hierarchy Table */
 .wh-table {
 	border: 1px #000 solid;
+	position: relative;
 	margin: 1em 0;
 	padding: 0;
 	width: 95%;
@@ -42,6 +43,7 @@ body {
 	margin: 0;
 }
 .sub {
+	position: relative;
     float: left;
     clear: right;
     overflow: hidden;
@@ -87,6 +89,30 @@ body {
     text-decoration: none;
 }
 
+/* Add Bbuttons */
+.add {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	font-size: 0.75em;
+}
+.add a {
+	display: inline-block;
+	padding: 0.25em 0.25em 0.25em 0.75em;
+	background-color: lightgreen;
+	color: white;
+	text-decoration: none;
+}
+.add a:before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0.5em;
+	height: 1.5em;
+	line-height: 1.8em;
+	text-align: center;
+	content: '+';
+}
 
 /* Only relevant to header -- need to replace */
 .wh-primary,

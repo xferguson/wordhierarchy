@@ -152,7 +152,7 @@ class WHTable extends React.Component {
 					</div>
 				</div>
 				{tableRows}
-				<div className="addRow"><a href="#" onClick={handleAddRow}>Add Row</a></div>
+				<div className="add"><a href="#" onClick={handleAddRow}>Add Row</a></div>
 			</div>
 		);
 	}

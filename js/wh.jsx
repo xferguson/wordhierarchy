@@ -2,7 +2,6 @@ class WHRow extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			// idRoot: (undefined !== props.key && null !== props.key && 'string' === typeof props.key) ? props.key : props.level.toString(),
 			idRoot: this.props.id,
 			value: (undefined !== props.value && null !== props.value && 'string' === typeof props.value) ? props.value : '',
 			level: props.level,
@@ -12,7 +11,6 @@ class WHRow extends React.Component {
 			unMount: props.unMount ? props.unMount : false,
 			keyBase: props.keyBase,
 		};
-		// this.addRow = props.addRow;
 		this.deleteRow = props.deleteRow ? props.deleteRow : null;
 	}
 	render() {
@@ -28,34 +26,13 @@ class WHRow extends React.Component {
 			e.preventDefault();
 			that.setState({
 				value: e.target.value,
-				// edit: false,
 			});
 		}
-		const handleDeleteRow = function(id) {
-			console.log('id: ' + id);
-			// console.log(that.state.subCells)
-			console.log(that.state.subCells[id])
-			// console.log('level: ' + that.state.level);
-			// console.log('maxLevel: ' + that.state.maxLevel);
-			// console.log('unMount: ' + that.state.unMount);
-			// that.setState({
-			// 	unMount: true,
-			// 	value: null,
-			// 	subCells: [],
-			// 	edit: false,
-			// });
-			var id = id.split('-').pop();
-			console.log('id: ' + id);
+		const handleDeleteRow = function(value) {
 			var newSubCells = that.state.subCells.slice();
-			// console.log('newSubCells: ');
-			// console.log(newSubCells);
-			console.log('returned splice: ');
-			console.log(newSubCells.splice(id, 1));
-			console.log('remaining array: ');
-			console.log(newSubCells);
-			console.log(newSubCells.length);
+			var id = newSubCells.findIndex((element) => value in element);
+			newSubCells.splice(id, 1);
 			that.setState({
-				// subCells: that.state.subCells.slice(0,id).concat(that.state.subCells.slice(id+1, that.state.subCells.length)),
 				subCells: newSubCells.length !== 0 ? newSubCells : [{}],
 			});
 
@@ -75,7 +52,6 @@ class WHRow extends React.Component {
 						const word = (undefined !== row && null !== row && 'object' === typeof row) ? row : {};
 						const value = undefined !== Object.keys(word)[0] ? Object.keys(word)[0] : '';
 						const sub = word[value];
-						// console.log('Sub level ' + level + '\'s key is ' + newId);
 						return (
 							<WHRow key={that.state.keyBase + '_' + value} keyBase={that.state.keyBase + '_' + value} id={newId} unMount={that.state.unMount} value={value} level={level} subCells={sub} maxLevel={maxLevel} deleteRow={handleDeleteRow} />
 						);
@@ -119,7 +95,7 @@ class WHRow extends React.Component {
 						{subRows(that.state.subCells, (that.state.level + 1))}
 						{(that.state.level < (that.state.maxLevel-1) ) ? (<div className="add"><a href="#" onClick={handleAddRow}>Add Row</a></div>) : ('')}
 					</div>
-					<div className="delete"><a href="#" onClick={(event) => {event.preventDefault(); that.deleteRow(that.state.idRoot)}}>Delete</a></div>
+					{(that.state.level < (that.state.maxLevel) ) ? (<div className="delete"><a href="#" onClick={(event) => {event.preventDefault(); that.deleteRow(that.state.value)}}>Delete</a></div>) : ('')}
 				</div>
 			);
 		} else {
@@ -135,7 +111,6 @@ class WHTable extends React.Component {
 			data: props.data,
 			maxLevel: props.maxLevel - 1, // account for 0 based indexing
 		};
-		// this.handleAddRow = this.handleAddRow.bind(this);
 	}
 	render() {
 		const that = this;
@@ -146,15 +121,10 @@ class WHTable extends React.Component {
 				data: that.state.data.concat({}),
 			});
 		}
-		const handleDeleteRow = function(id) {
-			// console.log('id: ' + id);
-			// console.log(that.state.data[id])
-			// that.setState({
-			// 	data: that.state.data.concat({}),
-			// });
-			var id = id;
+		const handleDeleteRow = function(value) {
 			var newData = that.state.data.slice();
-			console.log(newData.splice(id, 1));
+			var id = newData.findIndex((element) => value in element); // Search by term name.
+			newData.splice(id, 1);
 			that.setState({
 				data: newData,
 			});
@@ -167,9 +137,8 @@ class WHTable extends React.Component {
 			const word = row;
 			const value = Object.keys(word)[0];
 			const sub = word[value];
-			// console.log('main row has id of ' + id);
 			return (
-				<WHRow key={value} keyBase={value} id={id} value={value} level={0} subCells={sub} maxLevel={maxLevel} deleteRow={(event) => handleDeleteRow(index, event)} addRow={handleAddRow} /> //handleAddRow={(function(e) {e.preventDefault(); that.state.data = that.state.data.push({});})} />
+				<WHRow key={value} keyBase={value} id={id} value={value} level={0} subCells={sub} maxLevel={maxLevel} deleteRow={(event) => handleDeleteRow(value, event)} addRow={handleAddRow} /> //handleAddRow={(function(e) {e.preventDefault(); that.state.data = that.state.data.push({});})} />
 			);
 		});
 		return (

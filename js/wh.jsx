@@ -10,6 +10,7 @@ class WHRow extends React.Component {
 			subCells: (undefined !== props.subCells && Array.isArray(props.subCells) && props.subCells.length > 0) ? props.subCells : [{}],
 			edit: this.props.edit ? this.props.edit : false,
 			unMount: props.unMount ? props.unMount : false,
+			keyBase: props.keyBase,
 		};
 		// this.addRow = props.addRow;
 		this.deleteRow = props.deleteRow ? props.deleteRow : null;
@@ -32,10 +33,11 @@ class WHRow extends React.Component {
 		}
 		const handleDeleteRow = function(id) {
 			console.log('id: ' + id);
+			// console.log(that.state.subCells)
 			console.log(that.state.subCells[id])
-			console.log('level: ' + that.state.level);
-			console.log('maxLevel: ' + that.state.maxLevel);
-			console.log('unMount: ' + that.state.unMount);
+			// console.log('level: ' + that.state.level);
+			// console.log('maxLevel: ' + that.state.maxLevel);
+			// console.log('unMount: ' + that.state.unMount);
 			// that.setState({
 			// 	unMount: true,
 			// 	value: null,
@@ -43,8 +45,18 @@ class WHRow extends React.Component {
 			// 	edit: false,
 			// });
 			var id = id.split('-').pop();
+			console.log('id: ' + id);
+			var newSubCells = that.state.subCells.slice();
+			// console.log('newSubCells: ');
+			// console.log(newSubCells);
+			console.log('returned splice: ');
+			console.log(newSubCells.splice(id, 1));
+			console.log('remaining array: ');
+			console.log(newSubCells);
+			console.log(newSubCells.length);
 			that.setState({
-				subCells: that.state.subCells.slice(0,id).concat(that.state.subCells.slice(0,id+1)),
+				// subCells: that.state.subCells.slice(0,id).concat(that.state.subCells.slice(id+1, that.state.subCells.length)),
+				subCells: newSubCells.length !== 0 ? newSubCells : [{}],
 			});
 
 		}
@@ -63,9 +75,9 @@ class WHRow extends React.Component {
 						const word = (undefined !== row && null !== row && 'object' === typeof row) ? row : {};
 						const value = undefined !== Object.keys(word)[0] ? Object.keys(word)[0] : '';
 						const sub = word[value];
-						console.log('Sub level ' + level + '\'s key is ' + newId);
+						// console.log('Sub level ' + level + '\'s key is ' + newId);
 						return (
-							<WHRow id={newId} unMount={that.state.unMount} value={value} level={level} subCells={sub} maxLevel={maxLevel} deleteRow={handleDeleteRow} />
+							<WHRow key={that.state.keyBase + '_' + value} keyBase={that.state.keyBase + '_' + value} id={newId} unMount={that.state.unMount} value={value} level={level} subCells={sub} maxLevel={maxLevel} deleteRow={handleDeleteRow} />
 						);
 					})
 				);
@@ -73,7 +85,7 @@ class WHRow extends React.Component {
 				if (maxLevel === level) {
 					const value = subs.map((row) => Object.keys(row)[0]).join(', ');
 					return(
-						<WHRow id={that.state.idRoot + '-' + 0} value={value} level={level} maxLevel={maxLevel} />
+						<WHRow key={that.state.keyBase + '_' + value} keyBase={that.state.keyBase + '_' + value} id={that.state.idRoot + '-' + 0} value={value} level={level} maxLevel={maxLevel} />
 					);
 				} else {
 					return false;
@@ -140,9 +152,11 @@ class WHTable extends React.Component {
 			// that.setState({
 			// 	data: that.state.data.concat({}),
 			// });
-			var id = id.split('-').pop();
+			var id = id;
+			var newData = that.state.data.slice();
+			console.log(newData.splice(id, 1));
 			that.setState({
-				data: that.state.data.slice(0,id).concat(that.state.data.slice(0,id+1)),
+				data: newData,
 			});
 		}
 		const tableRows = that.state.data.map((row, index) => {
@@ -153,9 +167,9 @@ class WHTable extends React.Component {
 			const word = row;
 			const value = Object.keys(word)[0];
 			const sub = word[value];
-			console.log('main row has id of ' + id);
+			// console.log('main row has id of ' + id);
 			return (
-				<WHRow id={id} value={value} level={0} subCells={sub} maxLevel={maxLevel} deleteRow={(event) => handleDeleteRow(index, event)} addRow={handleAddRow} /> //handleAddRow={(function(e) {e.preventDefault(); that.state.data = that.state.data.push({});})} />
+				<WHRow key={value} keyBase={value} id={id} value={value} level={0} subCells={sub} maxLevel={maxLevel} deleteRow={(event) => handleDeleteRow(index, event)} addRow={handleAddRow} /> //handleAddRow={(function(e) {e.preventDefault(); that.state.data = that.state.data.push({});})} />
 			);
 		});
 		return (

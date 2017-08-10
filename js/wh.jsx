@@ -75,14 +75,14 @@ class WHRow extends React.Component {
 						<form onSubmit={toggleEdit}>
 							<input id="edit-input-text" type="text" value={that.state.value} onChange={updateValue}></input>
 						</form>
-						<div className="edit"><a href="#" onClick={toggleEdit}>Update</a></div>
+						<div className="edit edit-mode-button"><a href="#" onClick={toggleEdit}>Update</a></div>
 					</div>
 				);				
 			} else {
 				return(	
 					<div className='wh-cell'>
 						<p>{that.state.value}</p>
-						<div className="edit"><a href="#" onClick={toggleEdit}>Edit</a></div>
+						<div className="edit edit-mode-button"><a href="#" onClick={toggleEdit}>Edit</a></div>
 					</div>
 				);
 			}
@@ -93,9 +93,9 @@ class WHRow extends React.Component {
 					{cellType(that.state.value)}
 					<div className='sub'>
 						{subRows(that.state.subCells, (that.state.level + 1))}
-						{(that.state.level < (that.state.maxLevel-1) ) ? (<div className="add"><a href="#" onClick={handleAddRow}>Add Row</a></div>) : ('')}
+						{(that.state.level < (that.state.maxLevel-1) ) ? (<div className="add edit-mode-button"><a href="#" onClick={handleAddRow}>Add Row</a></div>) : ('')}
 					</div>
-					{(that.state.level < (that.state.maxLevel) ) ? (<div className="delete"><a href="#" onClick={(event) => {event.preventDefault(); that.deleteRow(that.state.value)}}>Delete</a></div>) : ('')}
+					{(that.state.level < (that.state.maxLevel) ) ? (<div className="delete edit-mode-button"><a href="#" onClick={(event) => {event.preventDefault(); that.deleteRow(that.state.value)}}>Delete</a></div>) : ('')}
 				</div>
 			);
 		} else {
@@ -110,6 +110,7 @@ class WHTable extends React.Component {
 			term: undefined === props.term ? 'Term' : props.term,
 			data: props.data,
 			maxLevel: props.maxLevel - 1, // account for 0 based indexing
+			editMode: false,
 		};
 	}
 	render() {
@@ -129,6 +130,12 @@ class WHTable extends React.Component {
 				data: newData,
 			});
 		}
+		const toggleEdit = function() {
+			that.setState({editMode: !that.state.editMode});
+		}
+		const tableClasses = function() {
+			return 'wh-table' + (that.state.editMode ? ' edit-mode' : '');
+		}
 		const tableRows = that.state.data.map((row, index) => {
 			if (null === row || 'object' !== typeof row || Array.isArray(row)) {
 				return null;
@@ -142,7 +149,7 @@ class WHTable extends React.Component {
 			);
 		});
 		return (
-			<div className='wh-table'>
+			<div className={tableClasses()}>
 				<div className='wh-row wh-header-row'>
 					<div className='wh-primary'>
 						<div className='wh-cell'><h3>Primary {that.state.term}</h3></div>
@@ -157,9 +164,10 @@ class WHTable extends React.Component {
 							</div>
 						</div>
 					</div>
+					<div className="toggle-edit"><a href="#" onClick={toggleEdit}>Edit Mode</a></div>
 				</div>
 				{tableRows}
-				<div className="add"><a href="#" onClick={handleAddRow}>Add Row</a></div>
+				<div className="add edit-mode-button"><a href="#" onClick={handleAddRow}>Add Row</a></div>
 			</div>
 		);
 	}

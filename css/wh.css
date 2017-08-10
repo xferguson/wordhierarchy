@@ -61,21 +61,44 @@ body {
 }
 
 /** Table Editing */
-.edit,
-.delete,
-.add {
+.edit-mode-button {
 	position: absolute;
 	font-size: 0.75em;
+	opacity: 0;
 }
-.edit a,
-.delete a,
-.add a {
+.edit-mode-button a {
 	display: inline-block;
 	padding: 0.25em;
 	text-decoration: none;
 }
+.edit-mode .edit-mode-button {
+	opacity: 1;
+}
 
 /* Edit Buttons */
+.toggle-edit {
+	position: absolute;
+    top: 1px;
+    right: 1px;
+}
+.toggle-edit a {
+	display: inline-block;
+	border: 1px red solid;
+    padding: 2px;
+	color: red;
+	text-decoration: none;
+}
+.toggle-edit a:before {
+	content: 'off ';
+}
+.edit-mode .toggle-edit a {
+	border: 1px green solid;
+	color: green;
+}
+.edit-mode .toggle-edit a:before {
+	content: 'on ';
+}
+
 .edit {
     top: 0em;
     right: 0em;

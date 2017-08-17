@@ -12,16 +12,10 @@ class WHRow extends React.Component {
 			keyBase: props.keyBase,
 		};
 		this.deleteRow = props.deleteRow ? props.deleteRow : null;
-		this.newRowCounter: 0; // This is used to add a unique key to new rows (with no value) so as to add multiple rows 
 	}
 	render() {
 		const that = this;
 		const maxLevel = that.state.maxLevel;
-		const getNewRowCounter = function() {
-			var count = that.newRowCounter;
-			that.newRowCounter = count + 1;
-			return count;
-		}
 		const toggleEdit = function(e) {
 			e.preventDefault();
 			that.setState({
@@ -43,11 +37,18 @@ class WHRow extends React.Component {
 			});
 
 		}
+		const filterRowValue = function(value) {
+			var newValue = value;
+			if (undefined === newValue || null === newValue || '' === newValue.trim()) {
+				newValue = '+' + that.props.table.newRowCounter;
+				that.props.table.newRowCounter = that.props.table.newRowCounter + 1;
+			}
+			return newValue;
+		}
 		const handleAddRow = function(e) {
 			e.preventDefault();
-			console.log(that.state.subCells);
 			that.setState({
-				subCells: that.state.subCells.concat({}),
+				subCells: that.state.subCells.concat({'': []}),
 			});
 		}
 		const subRows = function(subs, level) {
@@ -57,11 +58,11 @@ class WHRow extends React.Component {
 						const oldId = index;
 						const newId = that.state.idRoot + '-' + index;
 						const word = (undefined !== row && null !== row && 'object' === typeof row) ? row : {};
-						const value = undefined !== Object.keys(word)[0] ? Object.keys(word)[0] : '';
-						const keyValue = ('' === value ? 
+						const value = (undefined !== Object.keys(word)[0] && null !== Object.keys(word)[0]) ? Object.keys(word)[0] : '';
+						const filteredValue = filterRowValue(Object.keys(word)[0]);
 						const sub = word[value];
 						return (
-							<WHRow key={that.state.keyBase + '_' + value} keyBase={that.state.keyBase + '_' + value} id={newId} unMount={that.state.unMount} value={value} level={level} subCells={sub} maxLevel={maxLevel} deleteRow={handleDeleteRow} />
+							<WHRow key={that.state.keyBase + '_' + filteredValue} keyBase={that.state.keyBase + '_' + filteredValue} id={newId} unMount={that.state.unMount} value={value} level={level} subCells={sub} maxLevel={maxLevel} deleteRow={handleDeleteRow} table={that.props.table} />
 						);
 					})
 				);
@@ -69,7 +70,7 @@ class WHRow extends React.Component {
 				if (maxLevel === level) {
 					const value = subs.map((row) => Object.keys(row)[0]).join(', ');
 					return(
-						<WHRow key={that.state.keyBase + '_' + value} keyBase={that.state.keyBase + '_' + value} id={that.state.idRoot + '-' + 0} value={value} level={level} maxLevel={maxLevel} />
+						<WHRow key={that.state.keyBase + '_' + value} keyBase={that.state.keyBase + '_' + value} id={that.state.idRoot + '-' + 0} value={value} level={level} maxLevel={maxLevel} table={that.props.table} />
 					);
 				} else {
 					return null;
@@ -120,6 +121,7 @@ class WHTable extends React.Component {
 			maxLevel: props.maxLevel - 1, // account for 0 based indexing
 			editMode: true,//false,
 		};
+		this.newRowCounter = 0; // This is used to add a unique key to new rows (with no value) so as to add multiple rows 
 	}
 	render() {
 		const that = this;
@@ -154,7 +156,7 @@ class WHTable extends React.Component {
 			const value = Object.keys(word)[0];
 			const sub = word[value];
 			return (
-				<WHRow key={value} keyBase={value} id={id} value={value} level={0} subCells={sub} maxLevel={maxLevel} deleteRow={(event) => handleDeleteRow(value, event)} addRow={handleAddRow} /> //handleAddRow={(function(e) {e.preventDefault(); that.state.data = that.state.data.push({});})} />
+				<WHRow key={value} keyBase={value} id={id} value={value} level={0} subCells={sub} maxLevel={maxLevel} deleteRow={(event) => handleDeleteRow(value, event)} addRow={handleAddRow} table={that} /> //handleAddRow={(function(e) {e.preventDefault(); that.state.data = that.state.data.push({});})} />
 			);
 		});
 		return (

@@ -3,13 +3,19 @@
 }
 
 /* Hierarchy Table */
+.wh-table-box {
+	position: relative;
+	margin: 1em 0;
+	padding: 1.75em 0 0;
+	width: 95%;
+	max-width: 600px;
+}
 .wh-table {
 	border: 1px #000 solid;
 	position: relative;
-	margin: 1em 0;
 	padding: 0;
-	width: 95%;
-	max-width: 600px;
+	margin: 0;
+	width: 100%;
 	overflow: hidden;
 	text-align: left;
 }
@@ -85,15 +91,15 @@
 	color: red;
 	text-decoration: none;
 }
-.toggle-edit a:before {
-	content: 'off ';
+.toggle-edit a:after {
+	content: ' OFF';
 }
 .edit-mode .toggle-edit a {
 	border: 1px green solid;
 	color: green;
 }
-.edit-mode .toggle-edit a:before {
-	content: 'on ';
+.edit-mode .toggle-edit a:after {
+	content: ' ON';
 }
 
 .edit {
@@ -162,4 +168,36 @@
 }
 .wh-tertiary .wh-cell {
 	width: 100%;
+}
+
+@media print {
+	.body-content {
+		display: none;
+	}
+	.wh-table-box {
+		// background-color: white;
+        // height: 100%;
+        padding: 0;
+        max-width: 100%;
+        // position: fixed;
+        // top: 0;
+        // left: 0;
+        // margin: 0;
+	}
+	.wh-row {
+		page-break-inside: avoid;
+	}
+	.wh-cell {
+		padding: 0.3em 0.4em!important;
+	}
+	// .wh-header-row .wh-cell {
+	// 	padding: 0.5em!important;
+	// }
+	h3 {
+		margin: 0;
+	}
+	.edit-mode-button,
+	.toggle-edit {
+		display: none;
+	}
 }

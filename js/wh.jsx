@@ -119,7 +119,7 @@ class WHTable extends React.Component {
 			term: undefined === props.term ? 'Term' : props.term,
 			data: props.data,
 			maxLevel: props.maxLevel - 1, // account for 0 based indexing
-			editMode: true,//false,
+			editMode: false,
 		};
 		this.newRowCounter = 0; // This is used to add a unique key to new rows (with no value) so as to add multiple rows 
 	}
@@ -145,7 +145,7 @@ class WHTable extends React.Component {
 			that.setState({editMode: !that.state.editMode});
 		}
 		const tableClasses = function() {
-			return 'wh-table' + (that.state.editMode ? ' edit-mode' : '');
+			return 'wh-table-box' + (that.state.editMode ? ' edit-mode' : '');
 		}
 		const tableRows = that.state.data.map((row, index) => {
 			if (null === row || 'object' !== typeof row || Array.isArray(row)) {
@@ -161,24 +161,26 @@ class WHTable extends React.Component {
 		});
 		return (
 			<div className={tableClasses()}>
-				<div className='wh-row wh-header-row'>
-					<div className='wh-primary'>
-						<div className='wh-cell'><h3>Primary {that.state.term}</h3></div>
-						<div className='wh-secondary'>
-							<div>
-								<div className='wh-cell'><h3>Secondary {that.state.term}</h3></div>
-								<div className='wh-tertiary'>
-									<div>
-										<div className='wh-cell'><h3>Tertiary {that.state.term}</h3></div>
+				<div className='wh-table'>
+					<div className='wh-row wh-header-row'>
+						<div className='wh-primary'>
+							<div className='wh-cell'><h3>Primary {that.state.term}</h3></div>
+							<div className='wh-secondary'>
+								<div>
+									<div className='wh-cell'><h3>Secondary {that.state.term}</h3></div>
+									<div className='wh-tertiary'>
+										<div>
+											<div className='wh-cell'><h3>Tertiary {that.state.term}</h3></div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div className="toggle-edit"><a href="#" onClick={toggleEdit}>Edit Mode</a></div>
+					{tableRows}
+					<div className="add edit-mode-button"><a href="#" onClick={handleAddRow}>Add Row</a></div>
 				</div>
-				{tableRows}
-				<div className="add edit-mode-button"><a href="#" onClick={handleAddRow}>Add Row</a></div>
+				<div className="toggle-edit"><a href="#" onClick={toggleEdit}>Edit Mode</a></div>
 			</div>
 		);
 	}

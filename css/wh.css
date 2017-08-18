@@ -78,6 +78,25 @@
 	opacity: 1;
 }
 
+.table-button-box {
+	position: absolute;
+	top: 1px;
+	left: 0;
+	overflow: hidden;
+}
+.reset, .new, .print {
+	float: left;
+	position: static;
+	margin-right: 3px;
+}
+.reset a, .new a, .print a {
+	display: inline-block;
+	border: 1px darkgrey solid;
+    padding: 2px;
+	color: darkgrey;
+	text-decoration: none;
+}
+
 /* Edit Buttons */
 .toggle-edit {
 	position: absolute;
@@ -171,7 +190,8 @@
 }
 
 @media print {
-	.body-content {
+	.body-content,
+	.table-button-box {
 		display: none;
 	}
 	.wh-table-box {

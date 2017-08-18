@@ -147,6 +147,18 @@ class WHTable extends React.Component {
 		const tableClasses = function() {
 			return 'wh-table-box' + (that.state.editMode ? ' edit-mode' : '');
 		}
+		const resetTable = function(e) {
+			e.preventDefault();
+			that.setState({
+				data: that.props.data
+			});
+		}
+		const newTable = function(e) {
+			e.preventDefault();
+			that.setState({
+				data: [{}]
+			});
+		}
 		const tableRows = that.state.data.map((row, index) => {
 			if (null === row || 'object' !== typeof row || Array.isArray(row)) {
 				return null;
@@ -161,6 +173,11 @@ class WHTable extends React.Component {
 		});
 		return (
 			<div className={tableClasses()}>
+				<div className="table-button-box">
+					<div className="reset table-button"><a href="#" onClick={resetTable}>Revert to Sample</a></div>
+					<div className="new table-button"><a href="#" onClick={newTable}>Create New Table</a></div>
+					<div className="print table-button"><a href="#" onClick={print}>Print Table</a></div>
+				</div>
 				<div className='wh-table'>
 					<div className='wh-row wh-header-row'>
 						<div className='wh-primary'>

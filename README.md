@@ -8,13 +8,20 @@ I'm using the same hierarchy as in the post/book as an example of how it works.
 
 ## Structure
 
-To simplify the data schema, I have used nested arrays and objects such that a word is an object `key = wordText` and `attribute == ArrayOfWordObjects` as follows:
+To simplify the data schema, I have used nested arrays and objects such that a word is an object with key `word` is a string and key `children` is an array of word objects, or null if empty. `key = wordText` and `attribute == ArrayOfWordObjects` as follows:
 
 `````
 data = [
-	{word: [
-			{word: [
-					{word: [EMPTYARRAY]},
+	{
+		word: '',
+		children: [
+			{
+				word: '',
+				children: [
+					{
+						word: '',
+						children: null
+					},
 					{...},
 				]
 			},

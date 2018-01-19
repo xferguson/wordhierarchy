@@ -1,159 +1,422 @@
-	var sampleHierarchy = [{
-	        'Love': [{
-	                'Affection': [
-	                    { 'Adoration': [] },
-	                    { 'Affection': [] },
-	                    { 'Attraction': [] },
-	                    { 'Caring': [] },
-	                    { 'Compassion': [] },
-	                    { 'Fondness': [] },
-	                    { 'Liking': [] },
-	                    { 'Love': [] },
-	                    { 'Sentimentality': [] },
-	                    { 'Tenderness': [] }
+	var sampleHierarchy = [
+		{
+	        'word': 'Love',
+	        'children': [
+	        	{
+	                'word': 'Affection',
+	                'children': [
+	                    {
+	                    	'word': 'Adoration',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Affection',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Attraction',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Caring',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Compassion',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Fondness',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Liking',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Love',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Sentimentality',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Tenderness',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Lust': [
-	                    { 'Arousal': [] },
-	                    { 'Desire': [] },
-	                    { 'Infatuation': [] },
-	                    { 'Lust': [] },
-	                    { 'Passion': [] }
+	                'word': 'Lust',
+	                'children': [
+	                    {
+	                    	'word': 'Arousal',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Desire',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Infatuation',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Lust',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Passion',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Longing': [
-	                    { 'Longing': [] }
+	                'word': 'Longing',
+	                'children': [
+	                    {
+	                    	'word': 'Longing',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Optimism': [
-	                    { 'Eagerness': [] },
-	                    { 'Hope': [] },
-	                    { 'Optimism': [] }
+	                'word': 'Optimism',
+	                'children': [
+	                    {
+	                    	'word': 'Eagerness',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Hope',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Optimism',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Enthrallment': [
-	                    { 'Enthrallment': [] },
-	                    { 'Rapture': [] }
+	                'word': 'Enthrallment',
+	                'children': [
+	                    {
+	                    	'word': 'Enthrallment',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Rapture',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Relief': [
-	                    { 'Relief': [] }
+	                'word': 'Relief',
+	                'children': [
+	                    {
+	                    	'word': 'Relief',
+	                    	'children': []
+	                    }
 	                ]
 	            }
 	        ]
 	    },
 	    {
-	        'Surprise': [{
-	            'Surprise': [
-	                {'Amazement': []},
-	                {'Astonishment': []},
-	                {'Surprise': []}
+	        'word': 'Surprise',
+	        'children': [
+	        	{
+	            'Surprise',
+	            'children': [
+	                {'Amazement',
+	                'children': []},
+	                {'Astonishment',
+	                'children': []},
+	                {'Surprise',
+	                'children': []}
 	            ]
 	        }]
 	    },
 	    {
-	        'Joy': [{
-	                'Cheerfulness': [
-	                    { 'Amusement': [] },
-	                    { 'Bliss': [] },
-	                    { 'Cheerfulness': [] },
-	                    { 'Delight': [] },
-	                    { 'Elation': [] },
-	                    { 'Ecstasy': [] },
-	                    { 'Enjoyment': [] },
-	                    { 'Euphoria': [] },
-	                    { 'Gaiety': [] },
-	                    { 'Gladness': [] },
-	                    { 'Glee': [] },
-	                    { 'Happiness': [] },
-	                    { 'Joliness': [] },
-	                    { 'Joviality': [] },
-	                    { 'Joy': [] },
-	                    { 'Jubilation': [] },
-	                    { 'Satisfaction': [] }
+	        'word': 'Joy',
+	        'children': [
+	        	{
+	                'word': 'Cheerfulness',
+	                'children': [
+	                    {
+	                    	'word': 'Amusement',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Bliss',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Cheerfulness',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Delight',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Elation',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Ecstasy',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Enjoyment',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Euphoria',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Gaiety',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Gladness',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Glee',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Happiness',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Joliness',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Joviality',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Joy',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Jubilation',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Satisfaction',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Zest': [
-	                    { 'Enthousiasm': [] },
-	                    { 'Excitment': [] },
-	                    { 'Exhiliration': [] },
-	                    { 'Thrill': [] },
-	                    { 'Zeal': [] },
-	                    { 'Zest': [] }
+	                'word': 'Zest',
+	                'children': [
+	                    {
+	                    	'word': 'Enthousiasm',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Excitment',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Exhiliration',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Thrill',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Zeal',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Zest',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Contentment': [
-	                    { 'Contentment': [] },
-	                    { 'Pleasure': [] }
+	                'word': 'Contentment',
+	                'children': [
+	                    {
+	                    	'word': 'Contentment',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Pleasure',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Pride': [
-	                    { 'Pride': [] },
-	                    { 'Triumph': [] }
+	                'word': 'Pride',
+	                'children': [
+	                    {
+	                    	'word': 'Pride',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Triumph',
+	                    	'children': []
+	                    }
 	                ]
 	            }
 	        ]
 	    },
 	    {
-	        'Anger': [{
-	                'Irritation': [
-	                    { 'Aggravation': [] },
-	                    { 'Agitation': [] },
-	                    { 'Annoyance': [] },
-	                    { 'Grouchiness': [] },
-	                    { 'Grumpiness': [] },
-	                    { 'Irritation': [] }
+	        'word': 'Anger',
+	        'children': [
+	        	{
+	                'word': 'Irritation',
+	                'children': [
+	                    {
+	                    	'word': 'Aggravation',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Agitation',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Annoyance',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Grouchiness',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Grumpiness',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Irritation',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Exasperation': [
-	                    { 'Exasperation': [] },
-	                    { 'Frustration': [] }
+	                'word': 'Exasperation',
+	                'children': [
+	                    {
+	                    	'word': 'Exasperation',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Frustration',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Rage': [
-	                    { 'Anger': [] },
-	                    { 'Bitterness': [] },
-	                    { 'Dislike': [] },
-	                    { 'Ferocity': [] },
-	                    { 'Fury': [] },
-	                    { 'Hostility': [] },
-	                    { 'Hate': [] },
-	                    { 'Loathing': [] },
-	                    { 'Outrage': [] },
-	                    { 'Rage': [] },
-	                    { 'Resentment': [] },
-	                    { 'Scorn': [] },
-	                    { 'Spite': [] },
-	                    { 'Vengefulness': [] },
-	                    { 'Wrath': [] }
+	                'word': 'Rage',
+	                'children': [
+	                    {
+	                    	'word': 'Anger',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Bitterness',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Dislike',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Ferocity',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Fury',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Hostility',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Hate',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Loathing',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Outrage',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Rage',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Resentment',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Scorn',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Spite',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Vengefulness',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Wrath',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Disgust': [
-	                    { 'Contempt': [] },
-	                    { 'Disgust': [] },
-	                    { 'Revulsion': [] }
+	                'word': 'Disgust',
+	                'children': [
+	                    {
+	                    	'word': 'Contempt',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Disgust',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Revulsion',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Envy': [
-	                    { 'Envy': [] },
-	                    { 'Jealousy': [] }
+	                'word': 'Envy',
+	                'children': [
+	                    {
+	                    	'word': 'Envy',
+	                    	'children': []
+	                    },
+	                    {
+	                    	'word': 'Jealousy',
+	                    	'children': []
+	                    }
 	                ]
 	            },
 	            {
-	                'Torment': [
-	                    { 'Torment': [] }
+	                'word': 'Torment',
+	                'children': [
+	                    {
+	                    	'word': 'Torment',
+	                    	'children': []
+	                    }
 	                ]
 	            }
 	        ]

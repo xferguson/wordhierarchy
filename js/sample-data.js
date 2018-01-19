@@ -7,43 +7,43 @@
 	                'children': [
 	                    {
 	                    	'word': 'Adoration',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Affection',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Attraction',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Caring',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Compassion',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Fondness',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Liking',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Love',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Sentimentality',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Tenderness',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -52,23 +52,23 @@
 	                'children': [
 	                    {
 	                    	'word': 'Arousal',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Desire',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Infatuation',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Lust',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Passion',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -77,7 +77,7 @@
 	                'children': [
 	                    {
 	                    	'word': 'Longing',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -86,15 +86,15 @@
 	                'children': [
 	                    {
 	                    	'word': 'Eagerness',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Hope',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Optimism',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -103,11 +103,11 @@
 	                'children': [
 	                    {
 	                    	'word': 'Enthrallment',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Rapture',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -116,7 +116,7 @@
 	                'children': [
 	                    {
 	                    	'word': 'Relief',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            }
@@ -126,16 +126,23 @@
 	        'word': 'Surprise',
 	        'children': [
 	        	{
-	            'Surprise',
-	            'children': [
-	                {'Amazement',
-	                'children': []},
-	                {'Astonishment',
-	                'children': []},
-	                {'Surprise',
-	                'children': []}
-	            ]
-	        }]
+	            	'word': 'Surprise',
+	            	'children': [
+		                {
+		                	'word': 'Amazement',
+		                	'children': null
+		                },
+		                {
+		                	'word': 'Astonishment',
+		                	'children': null
+		                },
+		                {
+		                	'word': 'Surprise',
+		                	'children': null
+		                }
+	            	]
+	        	}
+	        ]
 	    },
 	    {
 	        'word': 'Joy',
@@ -145,71 +152,71 @@
 	                'children': [
 	                    {
 	                    	'word': 'Amusement',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Bliss',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Cheerfulness',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Delight',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Elation',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Ecstasy',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Enjoyment',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Euphoria',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Gaiety',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Gladness',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Glee',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Happiness',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Joliness',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Joviality',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Joy',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Jubilation',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Satisfaction',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -218,27 +225,27 @@
 	                'children': [
 	                    {
 	                    	'word': 'Enthousiasm',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Excitment',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Exhiliration',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Thrill',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Zeal',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Zest',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -247,11 +254,11 @@
 	                'children': [
 	                    {
 	                    	'word': 'Contentment',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Pleasure',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -260,11 +267,11 @@
 	                'children': [
 	                    {
 	                    	'word': 'Pride',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Triumph',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            }
@@ -278,27 +285,27 @@
 	                'children': [
 	                    {
 	                    	'word': 'Aggravation',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Agitation',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Annoyance',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Grouchiness',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Grumpiness',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Irritation',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -307,11 +314,11 @@
 	                'children': [
 	                    {
 	                    	'word': 'Exasperation',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Frustration',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -320,63 +327,63 @@
 	                'children': [
 	                    {
 	                    	'word': 'Anger',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Bitterness',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Dislike',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Ferocity',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Fury',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Hostility',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Hate',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Loathing',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Outrage',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Rage',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Resentment',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Scorn',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Spite',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Vengefulness',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Wrath',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -385,15 +392,15 @@
 	                'children': [
 	                    {
 	                    	'word': 'Contempt',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Disgust',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Revulsion',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -402,11 +409,11 @@
 	                'children': [
 	                    {
 	                    	'word': 'Envy',
-	                    	'children': []
+	                    	'children': null
 	                    },
 	                    {
 	                    	'word': 'Jealousy',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            },
@@ -415,7 +422,7 @@
 	                'children': [
 	                    {
 	                    	'word': 'Torment',
-	                    	'children': []
+	                    	'children': null
 	                    }
 	                ]
 	            }

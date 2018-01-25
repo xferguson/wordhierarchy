@@ -1,86 +1,77 @@
 class WHRow extends React.Component {
 	constructor(props) {
 		super(props);
+		/* Bindings */
+		this.toggleEdit = this.toggleEdit.bind(this);
+		this.handleUpdateValue = this.handleUpdateValue.bind(this);
+		this.updateValue = this.updateValue.bind(this);
+		this.handleDeleteRow = this.handleDeleteRow.bind(this);
+		this.handleAddRow = this.handleAddRow.bind(this);
+		/* Set States */
 		this.state = {
-			// idRoot: this.props.id,
-			// value: (undefined !== props.value && null !== props.value && 'string' === typeof props.value) ? props.value : '',
 			value: props.value,
 			word: props.word,
 			level: props.level,
 			maxLevel: props.maxLevel,
-			// children: (undefined !== props.children && Array.isArray(props.children) && props.children.length > 0) ? props.children : [{}],
 			children: (undefined !== props.children && Array.isArray(props.children) && props.children.length > 0) ? props.children : null,
 			edit: this.props.edit ? this.props.edit : false,
 			unMount: props.unMount ? props.unMount : false,
-			// keyBase: props.keyBase,
 		};
 		this.deleteRow = props.deleteRow ? props.deleteRow : null;
+
 	}
+
+	toggleEdit(e) {
+		e.preventDefault();
+		this.setState({
+			edit: !this.state.edit,
+		});
+	}
+	handleUpdateValue(e) {
+		e.preventDefault();
+		this.setState({
+			word: e.target.value,
+		});
+	}
+	updateValue(e) {
+		e.preventDefault();
+		this.setState({
+			value: e.target.value,
+		});
+	}
+	handleDeleteRow(value) {
+		var newSubCells = this.state.children.slice();
+		var id = newSubCells.findIndex((element) => value in element);
+		newSubCells.splice(id, 1);
+		this.setState({
+			children: newSubCells.length !== 0 ? newSubCells : [{}],
+		});
+	}
+	handleAddRow(e) {
+		e.preventDefault();
+		that.setState({
+			children: that.state.children.concat({'': []}),
+		});
+	}
+
+
 	render() {
 		const that = this;
 		const maxLevel = that.state.maxLevel;
-		const toggleEdit = function(e) {
-			e.preventDefault();
-			that.setState({
-				edit: !that.state.edit,
-			});
-		}
-		const updateValue = function(e) {
-			e.preventDefault();
-			that.setState({
-				value: e.target.value,
-			});
-		}
-		const handleDeleteRow = function(value) {
-			var newSubCells = that.state.children.slice();
-			var id = newSubCells.findIndex((element) => value in element);
-			newSubCells.splice(id, 1);
-			that.setState({
-				children: newSubCells.length !== 0 ? newSubCells : [{}],
-			});
-
-		}
-		const filterRowValue = function(value) {
-			var newValue = value;
-			if (undefined === newValue || null === newValue || '' === newValue.trim()) {
-				newValue = '+' + that.props.table.newRowCounter;
-				that.props.table.newRowCounter = that.props.table.newRowCounter + 1;
-			}
-			return newValue;
-		}
-		const handleAddRow = function(e) {
-			e.preventDefault();
-			that.setState({
-				children: that.state.children.concat({'': []}),
-			});
-		}
 		const children = function(childRows, level) {
 			if (maxLevel > level) {
 				return(
 					childRows.map((row, index) => {
-						// const oldId = index;
-						// const newId = that.state.idRoot + '-' + index;
-						// const word = (undefined !== row && null !== row && 'object' === typeof row) ? row : {};
 						const word = row.word;
-						// const value = (undefined !== Object.keys(word)[0] && null !== Object.keys(word)[0]) ? Object.keys(word)[0] : '';
-						// const filteredValue = filterRowValue(Object.keys(word)[0]);
 						const children = row.children;
-						// return (
-						//  <WHRow key={index} value={index} word={word} level={0} children={children} maxLevel={maxLevel} deleteRow={(event) => handleDeleteRow(index, event)} addRow={handleAddRow} table={that} />
-						// 	<WHRow key={that.state.keyBase + '_' + filteredValue} keyBase={that.state.keyBase + '_' + filteredValue} id={newId} unMount={that.state.unMount} value={value} level={level} children={children} maxLevel={maxLevel} deleteRow={handleDeleteRow} table={that.props.table} />
-						// );
 						return (
-							<WHRow key={index} unMount={that.state.unMount} word={word} value={index} level={level} children={children} maxLevel={maxLevel} deleteRow={handleDeleteRow} table={that.props.table} />
+							<WHRow key={index} unMount={that.state.unMount} word={word} value={index} level={level} children={children} maxLevel={maxLevel} deleteRow={that.handleDeleteRow} table={that.props.table} />
 						);
 					})
 				);
 			} else {
 				if (maxLevel === level) {
 					const word = childRows.map((row) => row.word).join(', ');
-					// return(
-					// 	<WHRow key={index} value={index} word={word} level={0} children={children} maxLevel={maxLevel} deleteRow={(event) => handleDeleteRow(index, event)} addRow={handleAddRow} table={that} />
-					// 	<WHRow key={0} value={0} word={word} level={level + 1} maxLevel={maxLevel} table={that.props.table} />
-					// );
 					return(
 						<WHRow key={0} value={0} word={word} level={level} maxLevel={maxLevel} table={that.props.table} />
 					);
@@ -93,17 +84,17 @@ class WHRow extends React.Component {
 			if (that.state.edit) {
 				return(	
 					<div className='wh-cell'>
-						<form onSubmit={toggleEdit}>
-							<input id="edit-input-text" type="text" word={that.state.word} onChange={updateValue}></input>
+						<form onSubmit={that.toggleEdit}>
+							<input id="edit-input-text" type="text" word={word} onChange={that.handleUpdateValue}></input>
 						</form>
-						<div className="edit edit-mode-button"><a href="#" onClick={toggleEdit}>Update</a></div>
+						<div className="edit edit-mode-button"><a href="#" onClick={that.toggleEdit}>Update</a></div>
 					</div>
 				);				
 			} else {
 				return(	
 					<div className='wh-cell'>
-						<p>{that.state.word}</p>
-						<div className="edit edit-mode-button"><a href="#" onClick={toggleEdit}>Edit</a></div>
+						<p>{word}</p>
+						<div className="edit edit-mode-button"><a href="#" onClick={that.toggleEdit}>Edit</a></div>
 					</div>
 				);
 			}
@@ -114,7 +105,7 @@ class WHRow extends React.Component {
 					{cellType(that.state.word)}
 					<div className='sub'>
 						{children(that.state.children, (that.state.level + 1))}
-						{(that.state.level < (that.state.maxLevel-1) ) ? (<div className="add edit-mode-button"><a href="#" onClick={handleAddRow}>Add Row</a></div>) : ('')}
+						{(that.state.level < (that.state.maxLevel-1) ) ? (<div className="add edit-mode-button"><a href="#" onClick={that.handleAddRow}>Add Row</a></div>) : ('')}
 					</div>
 					{(that.state.level < (that.state.maxLevel) ) ? (<div className="delete edit-mode-button"><a href="#" onClick={(event) => {event.preventDefault(); that.deleteRow(that.state.value)}}>Delete</a></div>) : ('')}
 				</div>

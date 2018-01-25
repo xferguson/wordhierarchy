@@ -21,6 +21,13 @@ class WHRow extends React.Component {
 
 	}
 
+	componentWillReceiveProps(nextProps) {
+         this.setState({
+         	word: nextProps.word,
+         	children: nextProps.children,
+         });
+    }
+
 	toggleEdit(e) {
 		e.preventDefault();
 		this.setState({
@@ -29,7 +36,7 @@ class WHRow extends React.Component {
 	}
 	handleUpdateValue(e) {
 		let index = this.state.value,
-			children = this.state.children.concat(),
+			children = this.state.children ? this.state.children.concat() : null,
 			row = {
 				word: e.target.value,
 				children: children,
@@ -39,7 +46,7 @@ class WHRow extends React.Component {
 	}
 	onRowUpdate(rowIndex, row) {
 		let index = this.state.value,
-			children = this.state.children.concat(),
+			children = this.state.children ? this.state.children.concat() : null,
 			newRow;
 		children[rowIndex] = row;		
 
@@ -96,7 +103,7 @@ class WHRow extends React.Component {
 				return(	
 					<div className='wh-cell'>
 						<form onSubmit={that.toggleEdit}>
-							<input id="edit-input-text" type="text" word={word} onChange={that.handleUpdateValue}></input>
+							<input id="edit-input-text" type="text" value={word} onChange={that.handleUpdateValue}></input>
 						</form>
 						<div className="edit edit-mode-button"><a href="#" onClick={that.toggleEdit}>Update</a></div>
 					</div>

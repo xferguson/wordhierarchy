@@ -14,7 +14,7 @@ class WHRow extends React.Component {
 			word: props.word,
 			level: props.level,
 			maxLevel: props.maxLevel,
-			children: (undefined !== props.children && Array.isArray(props.children) && props.children.length > 0) ? props.children : null,
+			children: (undefined !== props.children && Array.isArray(props.children) && props.children.length > 0) ? props.children : [{}],
 			edit: this.props.edit ? this.props.edit : false,
 			unMount: props.unMount ? props.unMount : false,
 		};

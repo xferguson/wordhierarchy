@@ -4,10 +4,10 @@ class WHRow extends React.Component {
 		/* Bindings */
 		this.toggleEdit = this.toggleEdit.bind(this);
 		this.handleUpdateValue = this.handleUpdateValue.bind(this);
-		this.onRowUpdate = this.onRowUpdate.bind(this);
+		this.handleAddChildRow = this.handleAddChildRow.bind(this);
 		this.handleDeleteRow = this.handleDeleteRow.bind(this);
+		this.onRowUpdate = this.onRowUpdate.bind(this);
 		this.onRowDelete = this.onRowDelete.bind(this);
-		this.handleAddRow = this.handleAddRow.bind(this);
 		/* Set States */
 		this.state = {
 			value: props.value,
@@ -45,11 +45,19 @@ class WHRow extends React.Component {
 		e.preventDefault();
 		this.props.onRowUpdate(index, row);
 	}
-	handleAddRow(e) {
+	handleAddChildRow(e) {
+		let index = this.state.value,
+			childRow = {
+				word: '',
+				children: null,
+			},
+			children = this.state.children ? this.state.children.concat([childRow]) : [childRow],
+			row = {
+				word: this.state.word,
+				children: children,
+			};
 		e.preventDefault();
-		that.setState({
-			children: that.state.children.concat({'': []}),
-		});
+		this.props.onRowUpdate(index, row);
 	}
 	handleDeleteRow(e) {
 		let index = this.state.value;
@@ -86,25 +94,29 @@ class WHRow extends React.Component {
 		const that = this;
 		const maxLevel = that.state.maxLevel;
 		const children = function(childRows, level) {
-			if (maxLevel > level) {
-				return(
-					childRows.map((row, index) => {
-						const word = row.word;
-						const children = row.children;
-						return (
-							<WHRow key={index} unMount={that.state.unMount} word={word} value={index} level={level} children={children} maxLevel={maxLevel} table={that.props.table} onRowUpdate={that.onRowUpdate} onRowDelete={that.onRowDelete} />
-						);
-					})
-				);
-			} else {
-				if (maxLevel === level) {
-					const word = childRows.map((row) => row.word).join(', ');
+			if (childRows) {
+				if (maxLevel > level) {
 					return(
-						<WHRow key={0} value={0} word={word} level={level} maxLevel={maxLevel} table={that.props.table} onRowUpdate={that.onRowUpdate} onRowDelete={that.onRowDelete} />
+						childRows.map((row, index) => {
+							const word = row.word;
+							const children = row.children;
+							return (
+								<WHRow key={index} unMount={that.state.unMount} word={word} value={index} level={level} children={children} maxLevel={maxLevel} table={that.props.table} onRowUpdate={that.onRowUpdate} onRowDelete={that.onRowDelete} />
+							);
+						})
 					);
 				} else {
-					return null;
+					if (maxLevel === level) {
+						const word = childRows.map((row) => row.word).join(', ');
+						return(
+							<WHRow key={0} value={0} word={word} level={level} maxLevel={maxLevel} table={that.props.table} onRowUpdate={that.onRowUpdate} onRowDelete={that.onRowDelete} />
+						);
+					} else {
+						return null;
+					}
 				}
+			} else {
+				return null;
 			}
 		}
 		const cellType = function(word) {
@@ -132,7 +144,7 @@ class WHRow extends React.Component {
 					{cellType(that.state.word)}
 					<div className='sub'>
 						{children(that.state.children, (that.state.level + 1))}
-						{(that.state.level < (that.state.maxLevel-1) ) ? (<div className="add edit-mode-button"><a href="#" onClick={that.handleAddRow}>Add Row</a></div>) : ('')}
+						{(that.state.level < (that.state.maxLevel-1) ) ? (<div className="add edit-mode-button"><a href="#" onClick={that.handleAddChildRow}>Add Row</a></div>) : ('')}
 					</div>
 					{(that.state.level < (that.state.maxLevel) ) ? (<div className="delete edit-mode-button"><a href="#" onClick={that.handleDeleteRow}>Delete</a></div>) : ('')}
 				</div>
@@ -148,6 +160,7 @@ class WHTable extends React.Component {
 		/* Bindings */
 		this.resetTable = this.resetTable.bind(this);
 		this.toggleEdit = this.toggleEdit.bind(this);
+		this.handleAddChildRow = this.handleAddChildRow.bind(this);
 		this.onRowUpdate = this.onRowUpdate.bind(this);
 		this.onRowDelete = this.onRowDelete.bind(this);
 		/* Set State */
@@ -159,6 +172,7 @@ class WHTable extends React.Component {
 		};
 		this.newRowCounter = 0; // This is used to add a unique key to new rows (with no value) so as to add multiple rows 
 	}
+
 	resetTable(e) {
 		e.preventDefault();
 		this.setState({
@@ -189,20 +203,18 @@ class WHTable extends React.Component {
 			data: rows,
 		});
 	}
-	handleDeleteRow(value) {
-		var newData = this.state.data.slice();
-		var id = newData.findIndex((element) => value in element); // Search by term name.
-		newData.splice(id, 1);
-		this.setState({
-			data: newData,
-		});
-	}
-	handleAddRow(e) {
+	handleAddChildRow(e) {
+		let newRow = {
+				word: '',
+				children: null,
+			},
+			rows = this.state.data ? this.state.data.concat([newRow]) : [newRow];
 		e.preventDefault();
 		this.setState({
-			data: this.state.data.concat({}),
+			data: rows,
 		});
 	}
+	
 	render() {
 		const that = this;
 		const maxLevel = that.state.maxLevel;
@@ -213,7 +225,7 @@ class WHTable extends React.Component {
 			const word = row.word;
 			const children = row.children;
 			return (
-				<WHRow key={index} value={index} word={word} level={1} children={children} maxLevel={maxLevel} onRowUpdate={that.onRowUpdate} onRowDelete={that.onRowDelete} addRow={that.handleAddRow} table={that} />
+				<WHRow key={index} value={index} word={word} level={1} children={children} maxLevel={maxLevel} onRowUpdate={that.onRowUpdate} onRowDelete={that.onRowDelete} addRow={that.handleAddChildRow} table={that} />
 			);
 		});
 		return (
@@ -240,7 +252,7 @@ class WHTable extends React.Component {
 						</div>
 					</div>
 					{tableRows}
-					<div className="add edit-mode-button"><a href="#" onClick={that.handleAddRow}>Add Row</a></div>
+					<div className="add edit-mode-button"><a href="#" onClick={that.handleAddChildRow}>Add Row</a></div>
 				</div>
 				<div className="toggle-edit"><a href="#" onClick={that.toggleEdit}>Edit Mode</a></div>
 			</div>

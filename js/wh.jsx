@@ -20,10 +20,10 @@ class WHRow extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-         this.setState({
-         	word: nextProps.word,
-         	children: nextProps.children,
-         });
+        this.setState({
+        	word: nextProps.word,
+        	children: nextProps.children,
+        });
     }
 
 	toggleEdit(e) {

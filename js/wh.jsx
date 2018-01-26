@@ -17,13 +17,18 @@ class WHRow extends React.Component {
 			children: (undefined !== props.children && Array.isArray(props.children) && props.children.length > 0) ? props.children : [{}],
 			edit: this.props.edit ? this.props.edit : false,
 		};
+		/* Props */
+		this.dataNeedsUpdate = false;
 	}
 
 	componentWillReceiveProps(nextProps) {
-        this.setState({
-        	word: nextProps.word,
-        	children: nextProps.children,
-        });
+		if (this.dataNeedsUpdate = true) {
+	        this.setState({
+	        	word: nextProps.word,
+	        	children: nextProps.children,
+	        });
+	        this.dataNeedsUpdate = false;
+		}
     }
 
 	toggleEdit(e) {
@@ -40,6 +45,7 @@ class WHRow extends React.Component {
 				children: children,
 			};
 		e.preventDefault();
+		this.dataNeedsUpdate = true;
 		this.props.onRowUpdate(index, row);
 	}
 	handleAddChildRow(e) {
@@ -54,11 +60,13 @@ class WHRow extends React.Component {
 				children: children,
 			};
 		e.preventDefault();
+		this.dataNeedsUpdate = true;
 		this.props.onRowUpdate(index, row);
 	}
 	handleDeleteRow(e) {
 		let index = this.state.value;
 		e.preventDefault();
+		this.dataNeedsUpdate = true;
 		this.props.onRowDelete(index);
 	}
 	onRowUpdate(rowIndex, row) {

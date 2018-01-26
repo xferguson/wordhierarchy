@@ -8,7 +8,7 @@ I'm using the same hierarchy as in the post/book as an example of how it works.
 
 ## Structure
 
-To simplify the data schema, I have used nested arrays and objects such that a word is an object with key `word` is a string and key `children` is an array of word objects, or null if empty. `key = wordText` and `attribute == ArrayOfWordObjects` as follows:
+To simplify the data schema, I have used nested arrays and objects such that a word is an object with key `word` is a string and key `children` is an array of word objects, or null if empty. `word == wordText` and `children == ArrayOfWordObjects` as follows:
 
 `````
 data = [
@@ -31,3 +31,9 @@ data = [
 	{...},
 ]
 `````
+
+## Needs
+
+- The site is only guaranteed to work down to a browser width of 600px. It is possible that errors or issue will show up below that. So adding some responsiveness may be necessary.
+- The JSX is transformed with the in-browser transformer at the moment (`babel.min.js`). A precompiler should be added
+- There is no linting or compression/uglification set up

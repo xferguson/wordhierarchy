@@ -170,12 +170,15 @@ class WHTable extends React.Component {
 		this.handleAddChildRow = this.handleAddChildRow.bind(this);
 		this.onRowUpdate = this.onRowUpdate.bind(this);
 		this.onRowDelete = this.onRowDelete.bind(this);
+		this.toggleEditTerm = this.toggleEditTerm.bind(this);
+		this.handleEditTerm = this.handleEditTerm.bind(this);
 		/* Set State */
 		this.state = {
 			term: undefined === props.term ? 'Term' : props.term,
 			data: props.data,
 			maxLevel: props.maxLevel,
 			editMode: false,
+			editTerm: false,
 		};
 		this.newRowCounter = 0; // This is used to add a unique key to new rows (with no value) so as to add multiple rows 
 	}
@@ -183,13 +186,19 @@ class WHTable extends React.Component {
 	resetTable(e) {
 		e.preventDefault();
 		this.setState({
-			data: this.props.data
+			term: undefined === this.props.term ? 'Term' : this.props.term,
+			data: this.props.data,
+			editMode: false,
+			editTerm: false,
 		});
 	}
 	newTable(e) {
 		e.preventDefault();
 		this.setState({
-			data: [{ word: '', children: [{}] }]
+			term: '',
+			data: [{ word: '', children: [{}] }],
+			editMode: true,
+			editTerm: true,
 		});
 	}
 	toggleEdit(e) {
@@ -221,6 +230,18 @@ class WHTable extends React.Component {
 			data: rows,
 		});
 	}
+	toggleEditTerm(e) {
+		e.preventDefault();
+		this.setState({
+			editTerm: !this.state.editTerm,
+		})
+	}
+	handleEditTerm(e) {
+		e.preventDefault();
+		this.setState({
+			term: e.target.value,
+		})
+	}
 	
 	render() {
 		const that = this;
@@ -228,6 +249,7 @@ class WHTable extends React.Component {
 		const tableClasses = function() {
 			return 'wh-table-box' + (that.state.editMode ? ' edit-mode' : '');
 		}
+		const isEditTermActive = () => that.state.editTerm ? 'edit-term table-button active' : 'edit-term table-button';
 		const tableRows = that.state.data.map((row, index) => {
 			const word = row.word;
 			const children = row.children;
@@ -240,6 +262,12 @@ class WHTable extends React.Component {
 				<div className="table-button-box">
 					<div className="reset table-button"><a href="#" onClick={that.resetTable}>Revert to Sample</a></div>
 					<div className="new table-button"><a href="#" onClick={that.newTable}>Create New Table</a></div>
+					<div className={isEditTermActive()}>
+						<form onSubmit={that.toggleEditTerm}>
+							<input id="edit-input-text" type="text" placeholder="Enter Term" value={that.state.term} onChange={that.handleEditTerm}></input>
+						</form>
+						<a href="#" onClick={that.toggleEditTerm}>Edit Term</a>
+					</div>
 					<div className="print table-button"><a href="#" onClick={print}>Print Table</a></div>
 				</div>
 				<div className='wh-table'>

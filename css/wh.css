@@ -98,17 +98,29 @@ body {
 	left: 0;
 	overflow: hidden;
 }
-.reset, .new, .print {
+.reset, .new, .print, .edit-term {
 	float: left;
 	position: static;
 	margin-right: 3px;
 }
-.reset a, .new a, .print a {
+.reset a, .new a, .print a, .edit-term a {
 	display: inline-block;
 	border: 1px darkgrey solid;
     padding: 2px;
 	color: darkgrey;
 	text-decoration: none;
+}
+.edit-term form {
+	display: none;
+}
+.edit-term.active form {
+	display: inline-block;
+}
+.edit-term input {
+	max-width: 7em;
+}
+.edit-term.active a {
+	display: none;
 }
 
 /* Edit Buttons */

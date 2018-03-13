@@ -32,6 +32,14 @@ data = [
 ]
 `````
 
+## Installation
+
+All files are already included in order to display the page by merely navigating to index.html
+
+## Development
+
+Packages are managed with node. In order to install packages for development, simply run `npm install`
+
 ## Needs
 
 - The site is only guaranteed to work down to a browser width of 600px. It is possible that errors or issue will show up below that. So adding some responsiveness may be necessary.

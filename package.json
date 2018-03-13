@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/xferguson/wordhierarchy#readme",
   "devDependencies": {
+    "eslint-plugin-react": "^7.7.0",
     "grunt": "^1.0.2",
     "grunt-cli": "^1.2.0",
     "grunt-eslint": "^20.1.0",

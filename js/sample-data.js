@@ -1,5 +1,4 @@
-/* exported sampleHierarchy */
-var sampleHierarchy = [{
+export const sampleHierarchy = [{
         "word": "Love",
         "children": [{
                 "word": "Affection",

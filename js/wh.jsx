@@ -1,5 +1,7 @@
 /* eslint-env browser */
-/* global React, ReactDOM, sampleHierarchy */
+/* global React, ReactDOM */
+import sampleHierarchy from "./sample-data.js";
+import PropTypes from "prop-types";
 class WHRow extends React.Component {
     constructor(props) {
         super(props);
@@ -162,6 +164,17 @@ class WHRow extends React.Component {
         );
     }
 }
+WHRow.propTypes = {
+    value: PropTypes.string,
+    word: PropTypes.string,
+    children: PropTypes.node,
+    level: PropTypes.number,
+    maxLevel: PropTypes.number,
+    edit: PropTypes.bool,
+    onRowUpdate: PropTypes.func,
+    onRowDelete: PropTypes.func
+};
+
 class WHTable extends React.Component {
     constructor(props) {
         super(props);
@@ -296,6 +309,11 @@ class WHTable extends React.Component {
         );
     }
 }
+WHTable.propTypes = {
+    term: PropTypes.string,
+    data: PropTypes.node,
+    maxLevel: PropTypes.number
+};
 
 var buildTable = function(data, targetId, termType, maxLevel) {
 

@@ -6,6 +6,8 @@ The intention is to build similar hierarchies of words. Pretty simple.
 
 I'm using the same hierarchy as in the post/book as an example of how it works.
 
+See a [sample of the tool](https://xferguson.github.io/wordhierarchy/).
+
 ## Structure
 
 To simplify the data schema, I have used nested arrays and objects such that a word is an object with key `word` is a string and key `children` is an array of word objects, or null if empty. `word == wordText` and `children == ArrayOfWordObjects` as follows:

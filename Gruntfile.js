@@ -1,4 +1,6 @@
 /* eslint-env node */
+const webpackConfig = require("./webpack.config.js");
+
 module.exports = function(grunt) {
     require("load-grunt-tasks")(grunt);
 
@@ -6,16 +8,10 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
         eslint: {
-            target: ["./Gruntfile.js", "./js/wh.jsx", "./js/sample-data.js"]
+            target: ["./Gruntfile.js", "webpack.config.js", "./js/wh.jsx", "./js/sample-data.js"]
         },
         webpack: {
-            build: {
-                entry: ["./js/wh.jsx"],
-                output: {
-                    path: "/js/",
-                    filename: "build.js"
-                }
-            }
+            myconfig: webpackConfig
         },
         babel: {
             options: {
@@ -23,11 +19,12 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    "js/app.js": "js/build.js"
+                    "js/app.js": "js/bundle.js"
                 }
             }
         }
     });
 
-    grunt.registerTask("default", ["eslint", "webpack", "babel"]);
+    grunt.registerTask("js", ["eslint", "webpack", "babel"]);
+    grunt.registerTask("default", ["js"]);
 };

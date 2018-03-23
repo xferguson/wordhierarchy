@@ -265,7 +265,8 @@ class WHTable extends React.Component {
             return "wh-table-box" + (that.state.editMode ? " edit-mode" : "");
         };
         const isEditTermActive = () => that.state.editTerm ? "edit-term table-button active" : "edit-term table-button";
-        const tableRows = that.state.data.map((row, index) => {
+        const tableRows = (!that.state.data) ? [] : that.state.data.map((row, index) => {
+        // const tableRows = that.state.data.map((row, index) => {
             const word = row.word;
             const children = row.children;
             return (

@@ -12,19 +12,9 @@ module.exports = function(grunt) {
         },
         webpack: {
             myconfig: webpackConfig
-        },
-        babel: {
-            options: {
-                presets: ["babel-preset-env", "react"]
-            },
-            dist: {
-                files: {
-                    "js/app.js": "js/bundle.js"
-                }
-            }
         }
     });
 
-    grunt.registerTask("js", ["eslint", "webpack", "babel"]);
+    grunt.registerTask("js", ["eslint", "webpack"]);
     grunt.registerTask("default", ["js"]);
 };

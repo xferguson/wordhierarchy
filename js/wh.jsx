@@ -1,6 +1,6 @@
 /* eslint-env browser */
 /* global React, ReactDOM */
-import sampleHierarchy from "./sample-data.js";
+import { sampleHierarchy } from "./sample-data.js";
 import PropTypes from "prop-types";
 class WHRow extends React.Component {
     constructor(props) {
